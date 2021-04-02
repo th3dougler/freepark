@@ -1,5 +1,13 @@
 # Freepark (working title)
 
+## Planning:
+
+[Lucidchart ERD](https://lucid.app/lucidchart/invitations/accept/d5c0ab0b-62fe-4146-b6e5-7234f17b2892?viewport_loc=-271%2C-168%2C2219%2C1079%2C0_0)
+
+
+
+
+
 ## SET UP DEV ENVIRONMENT:
 Clone:
 
