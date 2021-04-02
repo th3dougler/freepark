@@ -1,8 +1,46 @@
 # Freepark (working title)
 
+Python + Django web app for crowd-sourced free parking spaces
+Uses Leaflet for client side map rendering using OpenStreetMap
+
+SCREENSHOT OF MAIN SCREEN
+
+## Technologies Used:
+Python3.8
+Django
+Postgresql
+Pipenv
+environ
+
+LeafletJS
+OpenStreetMap
+MaterializeCSS
+
+## Getting Started:
+
+A link to the deployed app (Heroku)
+
+Trello:
+[Trello Board](https://trello.com/b/QExBNmy0)
+ERD:
+[Lucidchart ERD](https://lucid.app/lucidchart/invitations/accept/d5c0ab0b-62fe-4146-b6e5-7234f17b2892?viewport_loc=-271%2C-168%2C2219%2C1079%2C0_0)
+Wireframes:
+
+## Planned future enhancements (icebox items).
+
+ - Set timeout feature, for when you can only park for X hours
+ - Develop social features
+    - Nested comments
+    - Friends
+    - Share spots between friends
+    
+
+
+
+
 ## Planning:
 
-[Lucidchart ERD](https://lucid.app/lucidchart/invitations/accept/d5c0ab0b-62fe-4146-b6e5-7234f17b2892?viewport_loc=-271%2C-168%2C2219%2C1079%2C0_0)
+
 
 
 
