@@ -13,3 +13,17 @@ input#search {
 #nav-mobile a{
     color: black;
 }
+
+/* Leaflet Map Stufff */
+html, body{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+}
+#map-container{
+    height: 100%
+}
+#main-map {
+    height: 100%
+}

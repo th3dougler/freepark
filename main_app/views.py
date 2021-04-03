@@ -20,7 +20,7 @@ def Main_App_Home(request):
 
 # /accounts views
 
-def profile(request):
+def profile(login_required, request):
     return render(request, 'registration/profile.html',{
         'user': request.user
     })

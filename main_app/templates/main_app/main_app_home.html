@@ -1,7 +1,12 @@
 {%extends "base.html" %}
 
 {%block content%}
-<h1>Home</h1>
-<a href="{%url 'login' %}" class="btn">Login</a>
+{% load static %}
+
+<div id="map-container">
+    <div id="main-map"></div>    
+</div>
+
+<script type="module" src="{% static 'javascript/home_leaflet.js'%}"></script>
 {%endblock%}
 

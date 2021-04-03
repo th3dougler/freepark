@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, api_views
 from django.contrib.auth.decorators import login_required
 
 urlpatterns= [
@@ -8,5 +8,5 @@ urlpatterns= [
     path('accounts/profile/', views.profile, name="profile"),
     path('accounts/signup/', views.signup, name="signup"),
     
-    
+    path('api/spotlist', api_views.spotlist, name='api-spotlist')
 ]
