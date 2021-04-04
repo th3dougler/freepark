@@ -27,3 +27,13 @@ html, body{
 #main-map {
     height: 100%
 }
+
+
+/* profile image sizes */
+img.profile_icon{
+    width: 32px;
+    
+}
+img.profile_sm{
+    width: 100px;
+}
