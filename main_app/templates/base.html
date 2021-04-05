@@ -5,16 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Materialize CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- Leaflet JS+CSS CDN-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
+    <!-- Leaflet Geo Search CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+
     <script src="{% static 'javascript/nav_bar.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
     <title>Document</title>
 </head>
 <body>
@@ -23,9 +31,11 @@
             <div class="col s8">
                 <form>
                     <div class="input-field">
-                      <input id="search" name="search" type="search" required>
-                      <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label>
-                      <i class="material-icons">close</i>
+                      <i class="material-icons prefix black-text">search</i>
+                        <input id="search" name="search" type="search" list="search-list" class="autocomplete" autocomplete="off" required>    
+<!--                         <datalist id="search-list">
+                            <option value="...">
+                        </datalist> -->
                     </div>
                 </form>  
             </div>
@@ -66,9 +76,6 @@
     {%block content%}
     
     {%endblock%}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-        M.AutoInit()
-    </script>
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
 </body>
 </html>
