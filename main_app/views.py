@@ -27,6 +27,10 @@ def profile(request):
   print(user_profile)
   return render(request, 'registration/profile.html',{'profile': user_profile})
 
+# @login_required
+# def favorites(request):
+#   # rediret to map with spots plotted or spots shown as cards?
+
 @login_required
 def add_photo(request):
   profile_pic = request.FILES.get('profile-pic', None)

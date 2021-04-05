@@ -2,16 +2,41 @@ body{
     background-color: white;
 }
 /* tweak to allow search bar to share space with buttons */
-input#search {
-    height: 64px !important; /* or height of nav */
-    }
-    /* navbar bg color */
+#search{
+    position: absolute;
+    z-index: 2;
+}
+#search~label,i{
+    z-index: 2;
+}
 #nav-bar{
-    background-color: rgba(240, 230, 140, 0.5);
+    background-color: rgba(34, 167, 240, 0.5);
+    color: black;
+    height: auto;
+}
+
+#nav-wrapper{
+    height: 100%;
+    margin: 0;
+}
+
+#nav-wrapper>div{
+    height: 100%;
+}
+
+#nav-wrapper>div>a{
+    height: 100%;
 }
 /* set text color black for navbar */
 #nav-mobile a{
     color: black;
+}
+/* set logo size to fit navbar */
+#logo{
+    position: relative;
+    width: auto;
+    height: 100%;
+    z-index: 1;
 }
 
 /* Leaflet Map Stufff */
@@ -32,7 +57,7 @@ html, body{
 /* profile image sizes */
 img.profile_icon{
     width: 32px;
-    
+    margin-top: 15px;
 }
 img.profile_sm{
     width: 100px;

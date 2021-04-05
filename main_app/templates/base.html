@@ -13,40 +13,56 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
+    <script src="{% static 'javascript/nav_bar.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Document</title>
 </head>
 <body>
     <nav id="nav-bar">
-        <div class="nav-wrapper">
-            <div class="row">
-                <div class="col s8">
-                    <form>
-                        <div class="input-field">
-                          <input id="search" name="search" type="search" required>
-                          <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label>
-                          <i class="material-icons">close</i>
-                        </div>
-                      </form>     
-                </div>
-                <div class="col s4">
-                    <ul id="nav-mobile" class="right">
-                        <li><a href="{%url 'main-app-home'%}">Home</a></li>
-                        {%if user.is_authenticated%}
-                        <li><a href="{%url 'logout'%}">Log Out</a></li>
-                        <li><a href="{%url 'profile'%}" class="valign-wrapper">
-                            <img class="profile_icon circle" src="{{user.profile.url}}"/>
-                             {{user.username}}</a></li>
-                        
-                        {%else%}
-                        <li><a href="{%url 'login'%}">Log In</a></li>
-                        <li><a href="{%url 'signup'%}">Register</a></li>
-                        {%endif%}
-                    </ul>
-                </div>
+        <div id="nav-wrapper" class="nav-wrapper row">
+            <div class="col s10">
+                <form>
+                    <div class="input-field">
+                      <input id="search" name="search" type="search" required>
+                      <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label>
+                      <i class="material-icons">close</i>
+                    </div>
+                </form>  
+            </div>
+            <div class="col s2">
+                <a href="#!" class="brand-logo center"><img id="logo" class="circle" src="{% static 'images/logo.png' %}" alt="Logo"></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{%url 'main-app-home'%}">Home</a></li>
+                    {%if user.is_authenticated%}
+                    <li><a href="{%url 'logout'%}">Log Out</a></li>
+                    <li><a href="{%url 'profile'%}" class="align-wrapper">
+                        <img class="profile_icon circle" src="{{user.profile.url}}"/>
+                        </a>
+                    </li>
+                    {%else%}
+                    <li><a href="{%url 'login'%}">Log In</a></li>
+                    <li><a href="{%url 'signup'%}">Register</a></li>
+                    {%endif%}
+                </ul>
             </div>
         </div>
-      </nav>    
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="{%url 'main-app-home'%}">Home</a></li>
+        {%if user.is_authenticated%}
+        <li><a href="#">Favorites</a></li>
+        <li><a href="{%url 'profile'%}" class="valign-wrapper">Profile
+            <!-- <img class="profile_icon circle" src="{{user.profile.url}}"/> -->
+            </a>
+        </li>
+        <li><a href="{%url 'logout'%}">Log Out</a></li>
+        {%else%}
+        <li><a href="{%url 'login'%}">Log In</a></li>
+        <li><a href="{%url 'signup'%}">Register</a></li>
+        {%endif%}
+    </ul>
     {%block content%}
     
     {%endblock%}
