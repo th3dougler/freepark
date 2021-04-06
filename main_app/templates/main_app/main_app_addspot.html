@@ -1,0 +1,38 @@
+{%extends "base.html" %}
+{%block content%}
+{% load static %}
+{{lat|json_script:"lat" }}
+{{ lon|json_script:"lon" }}
+{{ addr|json_script:"addr"}}
+<div id="map-container-sm">
+  <div id="main-map-sm"></div>
+</div>
+<div>
+    <form method="POST" action="{%url 'api-addspot'%}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input name="lat" type="hidden" value="{{lat}}" readonly>
+        <input name="lon" type="hidden" value="{{lon}}" readonly>
+        
+        <div class="row">
+            <div class="col s12 m4">
+                <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg"  />
+            </div>
+            <div class="col s12 m8">
+                <textarea name="addr" class="materialize-textarea">{{addr}}</textarea>
+            </div>
+        </div>
+        <div class="row center">
+            <div class="col s12">
+                <textarea name="notes" class="materialize-textarea" placeholder="Notes, i.e. times of availability"></textarea>
+            </div>
+            <button type="submit" class="btn rounded blue lighten-3">Add Spot</button>
+            <a href="{%url 'main-app-home'%}" class="btn rounded grey left">Back</a>
+            
+        </div>
+    </form>  
+</div>
+<script
+  type="module"
+  src="{% static 'javascript/addspot_leaflet.js'%}"
+></script>
+{%endblock%}

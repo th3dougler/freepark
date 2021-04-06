@@ -46,12 +46,22 @@ html, body{
     display: flex;
     flex-flow: column;
 }
+
+/* main map view */
 #map-container{
     height: 100%
 }
 #main-map {
     height: 100%
 }
+/* add/detail view */
+#map-container-sm{
+    height: 40vh
+}
+#main-map-sm {
+    height: 100%
+}
+
 
 
 /* profile image sizes */

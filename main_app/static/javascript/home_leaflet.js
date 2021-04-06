@@ -8,8 +8,8 @@ let tempMarker;
 let results;
 //input ajax calls from module
 import * as ajaxFunc from "./modules/ajax_functions.js";
-//geosearch init
-const provider = new GeoSearch.OpenStreetMapProvider();
+//geosearch and autocomplete init
+import * as searchBar from "./modules/search_bar.js";
 
 document.addEventListener("DOMContentLoaded", init());
 
@@ -28,7 +28,7 @@ function onLocationError(e) {
 async function onClick(e) {
     if (tempMarker)
         map.removeLayer(tempMarker)
-  let resObject = await geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
+  let resObject = await searchBar.geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
   let newSpot = {
     "type": "Feature",
     "properties": {
@@ -63,63 +63,12 @@ async function onMoveEnd(e){
     let spotList = await ajaxFunc.getSpotList(bounds);
     myLayer.addData(spotList);
 }
-/* req's leaflet-geosearch pkg (CDN in base.html)
-    does a fuzzy search based on string provided to find a geographic location
-    free use of OSM Api 
-    Format: 
-    results [{
-            x: number; // lon
-            y: number; // lat
-            label: string; // formatted address
-            bounds: [
-                [number, number], // south, west - lat, lon
-                [number, number], // north, east - lat, lon
-            ];
-            raw: any; // raw provider result
-            }]
-*/
-async function geosearch(str) {
-  try {
-    //get geosearch results, pipe them into object sent to materialize autocomplete
-    results = await provider.search({ query: str });
-    let resObject = {};
-    results.forEach((val, idx) => {
-      resObject[val.label] = null;
-    });
-    return resObject;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-/* perform geosearch, take parsed data and replace materialize autocomplete data object
-    then open the autocomplete dropdown box
-*/
-async function updateAutocomplete(search) {
-  let result = await geosearch(search.value);
-  let instance = M.Autocomplete.getInstance(search);
-  console.log(instance);
-  instance.updateData(result);
-  instance.open();
-}
 
 async function init() {
   //initialize leaflet map, set default view to be the whole world
   try {
     //set a half second timeout every time the user types, to avoid wasting
     //time on geo polling
-    let search = document.getElementById("search");
-    var elems = document.querySelectorAll(".autocomplete");
-    var instances = M.Autocomplete.init(elems, { limit: 5, data: {} });
-
-    let searchTimeout;
-    search.addEventListener("input", () => {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        updateAutocomplete(search);
-      }, 300);
-    });
-
     //initialize leaflet raster tile layer, using OSM free tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:

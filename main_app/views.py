@@ -25,13 +25,14 @@ def Main_App_Home(request):
 @login_required
 def addspot(request):
   spotData = request.GET
-  lat = spotData.getlist('lat')
-  lon = spotData.getlist('lon')
-  addr = spotData.getlist('addr')
+  lat = spotData.getlist('lat')[0]
+  lon = spotData.getlist('lon')[0]
+  addr = spotData.getlist('addr')[0]
+  print(addr)
   return render(request, 'main_app/main_app_addspot.html', {
-    lat: lat,
-    lon: lon,
-    addr: addr,
+    'lat': lat,
+    'lon': lon,
+    'addr': addr,
   })
 
 # /accounts views
