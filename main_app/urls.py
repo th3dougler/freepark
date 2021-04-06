@@ -13,5 +13,7 @@ urlpatterns= [
     
     path('accounts/signup/', views.signup, name="signup"),
     
-    path('api/spotlist', api_views.spotlist, name='api-spotlist')
+    path('api/spotlist', api_views.spotlist, name='api-spotlist'),
+    path('api/addspot', api_views.addspot, name='api-addspot'),
+    
 ]
