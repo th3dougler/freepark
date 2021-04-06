@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', init());
 //event handler for when you try to find your own locationg
 function onLocationFound(e) {
     var radius = e.accuracy;
-    console.log('lat:',e.latitude,'|long: ',e.longitude)
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are here (ish)!").openPopup();
 
@@ -21,6 +20,13 @@ function onLocationError(e) {
     alert(e.message);
 }
 
+async function onClick(e){
+    let resObject = await geosearch(`${e.latlng['lat']}, ${e.latlng['lng']}`)
+    console.log(resObject)
+    let addMarker = new L.marker(e.latlng).addTo(map)
+        .bindPopup(`Lat: ${e.latlng['lat']} Lng: ${e.latlng['lng']} Addr: ${Object.keys(resObject)[0]}`)
+    console.log(e)
+}
 /* req's leaflet-geosearch pkg (CDN in base.html)
     does a fuzzy search based on string provided to find a geographic location
     free use of OSM Api 
@@ -83,7 +89,7 @@ async function init(){
         })
             
         //initialize leaflet raster tile layer, using OSM free tiles
-        L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: ["a", "b", "c"],
@@ -98,6 +104,8 @@ async function init(){
         //EventListeners for map:
         map.on('locationfound', onLocationFound);
         map.on('locationerror', onLocationError);
+        map.on('click', onClick)
+        
         
         //AJAX call to pull list of relevant spots
         
