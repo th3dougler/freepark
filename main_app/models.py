@@ -22,7 +22,7 @@ class Spot(models.Model):
     url = models.CharField(max_length=200, default="http://placekitten.com/100/100")
     
     def __str__(self):
-        return f'{self.user} - [{self.lat[:.2]},{self.lon[:.2]}]'
+        return f'{self.user} - [{self.lat},{self.lon}]'
 
 class Comment(models.Model):
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE)

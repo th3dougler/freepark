@@ -1,4 +1,10 @@
 let map = L.map("main-map").fitWorld();
+var myLayer = L.geoJSON([],{
+    onEachFeature: (feature, layer)=>{
+            layer.bindPopup(feature.properties.popupContent);
+    }
+    }).addTo(map);
+let tempMarker;
 let results;
 //input ajax calls from module
 import * as ajaxFunc from "./modules/ajax_functions.js";
@@ -20,29 +26,42 @@ function onLocationError(e) {
 }
 
 async function onClick(e) {
+    if (tempMarker)
+        map.removeLayer(tempMarker)
   let resObject = await geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
-  let addMarker = new L.marker(e.latlng)
-    .addTo(map)
-    .bindPopup(
-      `Lat: ${e.latlng["lat"]} Lng: ${e.latlng["lng"]} Addr: ${
-        Object.keys(resObject)[0]
-      }`
-    );
-
   let newSpot = {
-    type: "Feature",
-    properties: {
-      name: Object.keys(resObject)[0],
-      popupContent: `${Object.keys(resObject)[0]} <br/>
-        <a href="#">Link To Detail?</a><br/>
-        <a href="#">Link To Directions?</a><br/>`,
+    "type": "Feature",
+    "properties": {
+      "name": Object.keys(resObject)[0],
+      "popupContent": `${Object.keys(resObject)[0]} <br/>
+        <a href="#" class="btn blue lighten-1">Add Spot</a><br/>
+        <a href="#" class="btn-flat">Cancel</a><br/>`,
     },
-    geometry: {
-      type: "Point",
-      coordinates: [e.latlng["lat"], e.latlng["lng"]],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [e.latlng["lng"], e.latlng["lat"]],
     },
   };
-  ajaxFunc.addSpot(newSpot);
+  tempMarker = L.marker(e.latlng).addTo(map)
+    .bindPopup(`${Object.keys(resObject)[0]} <br/>
+    <form action="/addspot/" method="GET">
+    <input type="hidden" name="lat" value="${e.latlng["lat"]}">
+    <input type="hidden" name="lon" value="${e.latlng["lng"]}">
+    <input type="hidden" name="addr" value="${Object.keys(resObject)[0]}">
+    <button class="btn blue lighten-3">Add Spot</button><br/>
+    </form>
+    <a href="#" class="btn-flat">Cancel</a><br/>`).openPopup()
+//   await ajaxFunc.addSpot(newSpot)
+}
+
+/* whenever the user moves/zooms/otherwise does something to the map
+fetch the list of spots within the confines of the boundaries of the map
+populate the map with said spots
+ */
+async function onMoveEnd(e){
+    let bounds = map.getBounds();
+    let spotList = await ajaxFunc.getSpotList(bounds);
+    myLayer.addData(spotList);
 }
 /* req's leaflet-geosearch pkg (CDN in base.html)
     does a fuzzy search based on string provided to find a geographic location
@@ -110,16 +129,12 @@ async function init() {
 
     //get user location
     map.locate({ setView: true, maxZoom: 16 });
-
     //EventListeners for map:
     map.on("locationfound", onLocationFound);
     map.on("locationerror", onLocationError);
+    map.on("moveend", onMoveEnd);
     map.on("click", onClick);
 
-    //AJAX call to pull list of relevant spots
-
-    let r = await ajaxFunc.getSpotList();
-    console.log(r);
   } catch (err) {
     console.log(err);
   }

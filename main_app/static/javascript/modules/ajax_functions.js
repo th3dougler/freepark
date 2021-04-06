@@ -25,12 +25,16 @@ function getCookie(name) {
      are relevant to the user
 */
 
-export async function getSpotList() {
+export async function getSpotList(bounds) {
     try{
+        let lat1 = bounds['_northEast']['lat']
+        let lon1 = bounds['_northEast']['lng']
+        let lat2 = bounds['_southWest']['lat']
+        let lon2 = bounds['_southWest']['lng']
         
-        let url = "/api/spotlist";
-        let result = await fetch(url).then(res=>res.json());
-        return result
+        let url = `/api/spotlist?lat1=${lat1}&lat2=${lat2}&lon1=${lon1}&lon2=${lon2}`;
+        let visibleSpots = await fetch(url).then(res=>res.json());
+        return visibleSpots
         
     }catch(err){
         console.log(err)
