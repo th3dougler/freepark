@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', init());
 function onLocationFound(e) {
     var radius = e.accuracy;
     console.log('lat:',e.latitude,'|long: ',e.longitude)
+    // let mygeojson = L.marker(e).toGeoJSON(8)
+    console.log(e)
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are here (ish)!").openPopup();
 
@@ -93,7 +95,7 @@ async function init(){
         
         
         //get user location
-        map.locate({setView: true, maxZoom: 16});
+        map.locate({enableHighAccuracy: true, setView: true, maxZoom: 16});
         
         //EventListeners for map:
         map.on('locationfound', onLocationFound);
