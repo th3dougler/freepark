@@ -18,7 +18,7 @@ class Spot(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     lat = models.FloatField()
     lon = models.FloatField()
-    notes = models.CharField(max_length=150)
+    geojson = models.TextField()
     url = models.CharField(max_length=200, default="http://placekitten.com/100/100")
     
     def __str__(self):
