@@ -27,7 +27,6 @@ def addspot(request):
         data={
             'addSpot': request.body.decode("utf-8")
             }
-        print(body_json['geometry']['coordinates'][0])
         
         newSpot = Spot.objects.create(
             user_id = request.user.id,
