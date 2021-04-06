@@ -7,7 +7,7 @@ const provider = new GeoSearch.OpenStreetMapProvider();
 
 document.addEventListener('DOMContentLoaded', init());
 
-//event handler for when you try to find your own location
+//event handler for when you try to find your own locationg
 function onLocationFound(e) {
     var radius = e.accuracy;
     console.log('lat:',e.latitude,'|long: ',e.longitude)
