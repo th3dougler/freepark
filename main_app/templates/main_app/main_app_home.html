@@ -2,9 +2,10 @@
 
 {%block content%}
 {% load static %}
-{{spot_id|json_script:'spot_id'}}
-<div id="map-container">
-    <div id="main-map"></div>   
+{{spot|json_script:'spot'}}
+
+<div id="map-container" >
+    <div id="main-map"> </div>   
 </div>
 <script type="module" src="{% static 'javascript/home_leaflet.js'%}"></script>
 {%endblock%}

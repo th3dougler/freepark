@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns= [
     path('', views.Main_App_Home, name="main-app-home"),
+    path('<int:spotid>', views.Main_App_Home, name="main-app-home-refer"),
+    
     path('<int:pk>/detail', views.Main_App_Detail, name="main-app-detail"),
     path('<int:pk>/comment', views.Main_App_Add_Comment, name="main-app-add-comment"),
     
@@ -21,5 +23,4 @@ urlpatterns= [
     
     path('api/spotlist', api_views.spotlist, name='api-spotlist'),
     path('api/addspot', api_views.addspot, name='api-addspot'),
-    
 ]

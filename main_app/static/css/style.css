@@ -242,3 +242,7 @@ img.profile_sm{
     padding-left: 10px;
     border-radius: 10px;
 }
+
+#main-map.loading{
+    cursor:progress;
+}

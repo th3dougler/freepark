@@ -5,17 +5,42 @@
 </div>
 <div>
     <div class="row grey lighten-4 center">
-        <a href="#" class="col s3">View</a>
+        <a href="{%url 'main-app-home-refer' spot.id %}" class="col s3">View</a>
         <a href="#" class="col s3">Report</a>
-        <a href="#" class="col s3">Add Review</a>
+        <a href="#review-modal" class="col s3 modal-trigger">Add Review</a>
         <a href="#" class="col s3">Direction</a>
     </div>
 </div>
 
+  <!-- Modal Structure -->
+  <div id="review-modal" class="modal">
+    <form method="POST" action="{%url 'main-app-add-comment' spot.id%}">
+    <div class="modal-content">
+            {% csrf_token %}
+            <div class="row center">
+                <label for="rating">Rating: </label>
+                <input type="range" id="rating" name="rating" min="1" max="5" value="5" step="1" style="width: 200px">
+            </div>
+            
+            <div class="row center notes-div">
+                <textarea name="notes" class="materialize-textarea" placeholder="Notes, i.e. times of availability"></textarea>
+            </div>
+    </div>
+    <div class="modal-footer">
+            <button type="submit" class="btn rounded blue lighten-3">Submit</button>
+            <a href="{%url 'main-app-home'%}" class="btn rounded grey left">Back</a>
+    </div>
+    </form> 
+  </div>
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+  });
+  
+  </script>
 <div class=container>
-
-    
-    {%for comment in comments%}
+    {%for comment in spot.comment_set.all%}
     <div class="card col s12">
         <div class="card-content">
             <div class="card-title ">

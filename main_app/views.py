@@ -11,26 +11,36 @@ from .models import Comment, Spot, Profile
 import os
 import uuid
 import boto3
+import json
 S3_BASE_URL = 's3.us-east-2.amazonaws.com'
 BUCKET = 'freepark-profile'
 # main_app
 
-def Main_App_Home(request):
-  return render(request, 'main_app/main_app_home.html')
+def Main_App_Home(request, spotid = None):
+  if spotid:
+    spot= Spot.objects.get(pk=spotid).geojson
+  else:
+    spot= None
+  return render(request, 'main_app/main_app_home.html',{'spot': spot})
 
 def Main_App_Detail(request, pk):
   thisSpot = Spot.objects.get(pk=pk)
-  # spotRating = Spot.object.filter()
-  comments = Comment.objects.filter(spot=thisSpot)
   return render(request, 'main_app/main_app_detail.html',{
     'spot': thisSpot,
-    'comments': comments,
     'rating_range': range(0,5)
     })
-  
+@login_required  
 def Main_App_Add_Comment(request, pk):
-  return render(request, 'main_app/main_app_addcomment.html')
-
+  if request.method == 'POST':
+    formData = request.POST
+    Comment.objects.create(
+      spot_id = pk,
+      user_id = request.user.id,
+      rating = formData.get('rating'),
+      notes =  formData.get('notes'),
+    )
+    
+  return redirect('main-app-detail', pk = pk)
 
 """ {'lat': ['43.650981839898684'],
 'lon': ['-79.42196846008302'],
@@ -41,7 +51,6 @@ def addspot(request):
   lat = spotData.getlist('lat')[0]
   lon = spotData.getlist('lon')[0]
   addr = spotData.getlist('addr')[0]
-  print(addr)
   return render(request, 'main_app/main_app_addspot.html', {
     'lat': lat,
     'lon': lon,
@@ -51,9 +60,7 @@ def addspot(request):
 # /accounts views
 @login_required
 def profile(request):
-  print(request.user.id)
   user_profile = Profile.objects.get(user_id = request.user.id)
-  print(user_profile)
   return render(request, 'registration/profile.html',{'profile': user_profile})
 
 # @login_required
@@ -76,7 +83,6 @@ def add_photo(request):
       s3.upload_fileobj(profile_pic, BUCKET, key)
       # build the full url string
       url = f"https://{BUCKET}.{S3_BASE_URL}/{key}"
-      print(url)
       # we can assign to cat_id or cat (if you have a cat object)
       Profile.objects.filter(user_id = request.user.id).update(url=url)
     except:

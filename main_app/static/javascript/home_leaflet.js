@@ -33,6 +33,7 @@ function onLocationError(e) {
 }
 
 async function onClick(e) {
+  map.getContainer().classList.add("loading")
   tempLayer.clearLayers()
   
   let resObject = await geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
@@ -47,6 +48,7 @@ async function onClick(e) {
     </form>
     <a href="#" class="btn-flat">Cancel</a><br/>`).openPopup()
     tempLayer.addTo(map)
+    map.getContainer().classList.remove("loading")
 }
 
 /* whenever the user moves/zooms/otherwise does something to the map
@@ -71,9 +73,17 @@ async function init() {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       subdomains: ["a", "b", "c"],
     }).addTo(map);
-
-    //get user location
-    map.locate({ setView: true, maxZoom: 16 });
+    
+    //grab initial spot id, if being passed from a detail view
+    let initSpot = JSON.parse(JSON.parse(document.getElementById('spot').textContent));
+    
+    if(initSpot === null)
+      map.locate({ setView: true, maxZoom: 16 });
+    else{
+      let latlng = L.latLng(initSpot.geometry.coordinates[1],initSpot.geometry.coordinates[0]);
+      map.setView(latlng, 15)
+      onMoveEnd(null)
+    }
     //EventListeners for map:
     map.on("locationfound", onLocationFound);
     map.on("locationerror", onLocationError);
