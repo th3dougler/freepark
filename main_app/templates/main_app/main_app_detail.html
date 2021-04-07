@@ -1,14 +1,14 @@
 {%extends "base.html" %}
 {%block content%}
 <div id="spot-image-container" class="center" style="height: 40vh; background-color: grey;">
-  <img style="max-width: 100%;" class="responsive-img" src='{{spot.url}}'>
+  <img style="height: 100%" class="responsive-img" src='{{spot.url}}'>
 </div>
 <div>
     <div class="row grey lighten-4 center">
         <a href="{%url 'main-app-home-refer' spot.id %}" class="col s3">View</a>
         <a href="#" class="col s3">Report</a>
         <a href="#review-modal" class="col s3 modal-trigger">Add Review</a>
-        <a href="#" class="col s3">Direction</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination={{spot.lat}}%2c{{spot.lon}}" class="col s3">Direction</a>
     </div>
 </div>
 

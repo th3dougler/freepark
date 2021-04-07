@@ -15,14 +15,14 @@ import json
 S3_BASE_URL = 's3.us-east-2.amazonaws.com'
 BUCKET = 'freepark-profile'
 # main_app
-
+@login_required
 def Main_App_Home(request, spotid = None):
   if spotid:
     spot= Spot.objects.get(pk=spotid).geojson
   else:
     spot= None
   return render(request, 'main_app/main_app_home.html',{'spot': spot})
-
+@login_required
 def Main_App_Detail(request, pk):
   thisSpot = Spot.objects.get(pk=pk)
   return render(request, 'main_app/main_app_detail.html',{
@@ -61,7 +61,7 @@ def addspot(request):
 @login_required
 def profile(request):
   user_profile = Profile.objects.get(user_id = request.user.id)
-  return render(request, 'registration/profile.html',{'profile': user_profile})
+  return render(request, 'registration/profile.html',{'rating_range': range(0,5)})
 
 # @login_required
 # def favorites(request):
