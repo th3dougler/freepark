@@ -9,7 +9,27 @@
                 <div class="card-content">
                         <div class=" row valign-wrapper">
                         <div class="col s2">
-                            <img src="{{profile.url}}" class="responsive-img circle">    
+                            
+                            <form id="update-profile-pic" action="{%url 'add-photo' %}" method="POST" enctype="multipart/form-data">
+                                     {% csrf_token %}   
+                            <label for="input-image">
+                                <img src="{{profile.url}}" id="output" class="responsive-img circle">  
+                            </label>
+                            <input id="input-image" class="display_none" type="file" name="input-image" accept="image/x-png,image/gif,image/jpeg"/>
+                            </form>  
+                            <script>
+                                let inputImage = document.getElementById('input-image');
+                                inputImage.onchange = function(e){
+                                    if(e.target.files && e.target.files[0]){
+                                        let output = document.getElementById('output');
+                                        output.src = URL.createObjectURL(e.target.files[0]);
+                                        document.getElementById("update-profile-pic").submit();
+                                        output.onload = ()=>{
+                                        URL.revokeObjectURL(output.src)
+                                    }
+                                    }
+                                }
+                            </script>
                         </div>
                         <div class="col s5 flow-text">
                             <h1>{{user.username}}</h1>

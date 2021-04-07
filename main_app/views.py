@@ -8,10 +8,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 #import db models
 from .models import Comment, Spot, Profile
-
+import os
 import uuid
 import boto3
-S3_BASE_URL = 'https://s3-accesspoint.us-east-2.amazonaws.com/'
+S3_BASE_URL = 's3.us-east-2.amazonaws.com'
 BUCKET = 'freepark-profile'
 # main_app
 
@@ -49,22 +49,27 @@ def profile(request):
 
 @login_required
 def add_photo(request):
-  profile_pic = request.FILES.get('profile-pic', None)
+  profile_pic = request.FILES.get('input-image', None)
+  print(profile_pic)
   if profile_pic:
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',
+        aws_access_key_id=os.environ['AWS_ACCESS_ID'],
+        aws_secret_access_key=os.environ['AWS_ACCESS_KEY']
+                      )
     # need a unique "key" for S3 / needs image file extension too
     key = uuid.uuid4().hex[:6] + profile_pic.name[profile_pic.name.rfind('.'):]
     # just in case something goes wrong
     try:
       s3.upload_fileobj(profile_pic, BUCKET, key)
       # build the full url string
-      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      url = f"https://{BUCKET}.{S3_BASE_URL}/{key}"
+      print(url)
       # we can assign to cat_id or cat (if you have a cat object)
-      profile = Profile.objects.update_or_create(user = request.user, url= url)
-      
+      Profile.objects.filter(user_id = request.user.id).update(url=url)
     except:
-            print('An error occurred uploading file to S3')
+      print('An error occurred uploading file to S3')
     return redirect('profile')
+  return redirect('main-app-home')
   
     
 def signup(request):

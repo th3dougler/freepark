@@ -65,7 +65,6 @@ def addspot(request):
                 aws_access_key_id=os.environ['AWS_ACCESS_ID'],
                 aws_secret_access_key=os.environ['AWS_ACCESS_KEY']
                               )
-            s3.list_buckets()
             # need a unique "key" for S3 / needs image file extension too
             key = uuid.uuid4().hex[:6] + spot_image.name[spot_image.name.rfind('.'):]
             # just in case something goes wrong
