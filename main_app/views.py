@@ -27,6 +27,9 @@ def Main_App_Detail(request, pk):
     'comments': comments,
     'rating_range': range(0,5)
     })
+  
+def Main_App_Add_Comment(request, pk):
+  return render(request, 'main_app/main_app_addcomment.html')
 
 
 """ {'lat': ['43.650981839898684'],

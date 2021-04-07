@@ -228,3 +228,17 @@ img.profile_sm{
         content:url("/static/images/SVG/Logo_Alt2.svg");
     }
 }
+#login-form input:not([type=submit]){
+    border: 1px solid rgb(71, 71, 71);
+    background-color: rgb(141, 182, 207);
+    padding-left: 10px;
+    border-radius: 20px;
+}
+#login-form input[type=submit]{
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(71, 71, 71);
+    background: rgb(33, 116, 184);
+    padding-left: 10px;
+    border-radius: 10px;
+}
