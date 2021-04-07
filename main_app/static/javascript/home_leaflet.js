@@ -13,11 +13,19 @@ import * as searchBar from "./modules/search_bar.js";
 
 document.addEventListener("DOMContentLoaded", init());
 
+
+var greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 //event handler for when you try to find your own locationg
 function onLocationFound(e) {
-  L.marker(e.latlng).addTo(map).bindPopup("You are here (ish)!").openPopup();
-
-  L.circle(e.latlng).addTo(map);
+  onClick(e)
 }
 
 function onLocationError(e) {
@@ -29,7 +37,7 @@ async function onClick(e) {
   
   let resObject = await searchBar.geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
   
-  let tempMarker = L.marker(e.latlng).addTo(tempLayer)
+  let tempMarker = L.marker(e.latlng,{icon: greenIcon}).addTo(tempLayer)
     .bindPopup(`${Object.keys(resObject)[0]} <br/>
     <form action="/addspot/" method="GET">
     <input type="hidden" name="lat" value="${e.latlng["lat"]}">

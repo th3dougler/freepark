@@ -2,6 +2,7 @@
 
 {%block content%}
 {% load static %}
+{{spot_id|json_script:'spot_id'}}
 <div id="map-container">
     <div id="main-map"></div>   
 </div>
