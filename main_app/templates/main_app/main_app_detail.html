@@ -1,0 +1,42 @@
+{%extends "base.html" %}
+{%block content%}
+<div id="spot-image-container" class="center" style="background-color: grey;">
+  <img style="max-height: 40vh;" src='{{spot.url}}'>
+  
+  <div class="row grey lighten-4">
+    <a href="#" class="col s3">View</a>
+    <a href="#" class="col s3">Report</a>
+    <a href="#" class="col s3">Add Review</a>
+    <a href="#" class="col s3">Direction</a>
+</div>
+</div>
+
+<div class=container>
+
+    
+    {%for comment in comments%}
+    <div class="card col s12">
+        <div class="card-content">
+            <div class="card-title ">
+                <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{comment.user.profile.url}}">
+                {{comment.user.username}}
+                
+            </div>
+                {{comment.notes}}
+                <div class="yellow">
+                    {%for i in rating_range%}
+                        {%if i < comment.rating%}
+                            *
+                        {%else%}
+                            -
+                        {%endif%}
+                    {%endfor%}
+                </div>
+            
+        </div>
+    
+
+    </div>
+    {%endfor%}
+</div>
+{%endblock%}

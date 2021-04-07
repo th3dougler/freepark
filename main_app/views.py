@@ -18,6 +18,16 @@ BUCKET = 'freepark-profile'
 def Main_App_Home(request):
   return render(request, 'main_app/main_app_home.html')
 
+def Main_App_Detail(request, pk):
+  thisSpot = Spot.objects.get(pk=pk)
+  # spotRating = Spot.object.filter()
+  comments = Comment.objects.filter(spot=thisSpot)
+  return render(request, 'main_app/main_app_detail.html',{
+    'spot': thisSpot,
+    'comments': comments,
+    'rating_range': range(0,5)
+    })
+
 
 """ {'lat': ['43.650981839898684'],
 'lon': ['-79.42196846008302'],

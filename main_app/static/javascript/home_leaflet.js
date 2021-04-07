@@ -4,7 +4,7 @@ var myLayer = L.geoJSON([],{
             layer.bindPopup(feature.properties.popupContent);
     }
     }).addTo(map);
-let tempMarker;
+let tempLayer = new L.LayerGroup();
 let results;
 //input ajax calls from module
 import * as ajaxFunc from "./modules/ajax_functions.js";
@@ -15,10 +15,9 @@ document.addEventListener("DOMContentLoaded", init());
 
 //event handler for when you try to find your own locationg
 function onLocationFound(e) {
-  var radius = e.accuracy;
   L.marker(e.latlng).addTo(map).bindPopup("You are here (ish)!").openPopup();
 
-  L.circle(e.latlng, radius).addTo(map);
+  L.circle(e.latlng).addTo(map);
 }
 
 function onLocationError(e) {
@@ -26,23 +25,11 @@ function onLocationError(e) {
 }
 
 async function onClick(e) {
-    if (tempMarker)
-        map.removeLayer(tempMarker)
+  tempLayer.clearLayers()
+  
   let resObject = await searchBar.geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
-  let newSpot = {
-    "type": "Feature",
-    "properties": {
-      "name": Object.keys(resObject)[0],
-      "popupContent": `${Object.keys(resObject)[0]} <br/>
-        <a href="#" class="btn blue lighten-1">Add Spot</a><br/>
-        <a href="#" class="btn-flat">Cancel</a><br/>`,
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [e.latlng["lng"], e.latlng["lat"]],
-    },
-  };
-  tempMarker = L.marker(e.latlng).addTo(map)
+  
+  let tempMarker = L.marker(e.latlng).addTo(tempLayer)
     .bindPopup(`${Object.keys(resObject)[0]} <br/>
     <form action="/addspot/" method="GET">
     <input type="hidden" name="lat" value="${e.latlng["lat"]}">
@@ -51,7 +38,7 @@ async function onClick(e) {
     <button class="btn blue lighten-3">Add Spot</button><br/>
     </form>
     <a href="#" class="btn-flat">Cancel</a><br/>`).openPopup()
-//   await ajaxFunc.addSpot(newSpot)
+    tempLayer.addTo(map)
 }
 
 /* whenever the user moves/zooms/otherwise does something to the map
@@ -62,6 +49,7 @@ async function onMoveEnd(e){
     let bounds = map.getBounds();
     let spotList = await ajaxFunc.getSpotList(bounds);
     myLayer.addData(spotList);
+    
 }
 
 async function init() {

@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns= [
     path('', views.Main_App_Home, name="main-app-home"),
+    path('<int:pk>/detail', views.Main_App_Detail, name="main-app-detail"),
+    
     path('addspot/', views.addspot, name="main-app-addspot"),
     
     #accounts
