@@ -106,6 +106,7 @@ html, body{
     margin: 0;
     display: flex;
     flex-flow: column;
+    scroll-behavior: smooth;
 }
 
 /* main map view */

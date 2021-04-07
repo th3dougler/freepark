@@ -6,9 +6,13 @@ function init() {
     var elems = document.querySelectorAll('.collapsible');
     let options= {}
     collapsibles = M.Collapsible.init(elems, options);
+    elems = document.querySelectorAll('.fixed-action-btn');
+    M.FloatingActionButton.init(elems, {
+      hoverEnabled: false
+    });
   }
   
 function openCollapsible(idx){
-    console.log(collapsibles[idx])
     collapsibles[0].open(idx)
+    location.hash = "#"+idx.toString();
 }
