@@ -28,19 +28,21 @@
 <body>
     <nav id="nav-bar">
         <div id="nav-wrapper" class="nav-wrapper row">
-            <div class="col s8">
+            <div class="col s2 m2 logo-div">
+                <a href="#!" class="brand-logo left"><img id="logo" class="circle" src="{% static 'images/SVG/Logo_Alt2.svg' %}" alt="Logo"></a>
+            </div>
+            <div class="col s8 m8 search-div">
                 <form>
                     <div class="input-field">
-                      <i class="material-icons prefix black-text">search</i>
-                        <input id="search" name="search" type="search" list="search-list" class="autocomplete" autocomplete="off" required>    
+                      <i class="material-icons black-text">search</i>
+                        <input id="search" name="search" placeholder="Search" type="search" list="search-list" class="autocomplete" autocomplete="off" required>    
 <!--                         <datalist id="search-list">
                             <option value="...">
                         </datalist> -->
                     </div>
                 </form>  
             </div>
-            <div class="col s4">
-                <a href="#!" class="brand-logo center"><img id="logo" class="circle" src="{% static 'images/logo.png' %}" alt="Logo"></a>
+            <div class="col s2 m2 menu-div">
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{%url 'main-app-home'%}">Home</a></li>
@@ -80,3 +82,16 @@
 </body>
 </html>
 
+<!-- <div class="col m2 s3">
+    <a href="#!" class="brand-logo left"><img id="logo" class="circle" src="{% static 'images/logo.png' %}" alt="Logo"></a>
+</div>
+<div class="col m8 s7">
+    <div class="search-main row">
+        <div class="search-icon col s1">
+            <i class="material-icons prefix black-text">search</i>
+        </div>
+        <div class="search-myinput col s11">
+            <input type="text" name="box" placeholder="Search">
+        </div>
+    </div>
+</div> -->

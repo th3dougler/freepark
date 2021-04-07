@@ -28,7 +28,6 @@ def spotlist(request):
         json_arr.append(json.loads(spot.geojson))
     return HttpResponse(json.dumps(json_arr), content_type='application/json')
 
-
 # add a new Spot row, use image if it exists
 # in order to save the id of the row to the geojson, i save the row
 # then update the geojson column with the PK

@@ -13,36 +13,23 @@
         <input name="lat" type="hidden" value="{{lat}}" readonly>
         <input name="lon" type="hidden" value="{{lon}}" readonly>
         
-        <div class="row">
-            <div class="col s12 m4">
-                <img id="image-preview" class="responsive-img small">
-                <label for="image-input" class="btn blue lighten-3">Add Photo</label>
-                <input type="file" id="image-input" name="image" style="opacity:0; z-index:-1" accept="image/x-png,image/gif,image/jpeg"  />
-                <script>
-                    let input = document.getElementById('image-input')
-                    input.onchange = function(){
-                        if(input.files && input.files[0]){
-                            let reader = new FileReader();
-                            reader.onload = function(e){
-                                document.getElementById('image-preview').src = e.target.result;
-                            }
-                            reader.readAsDataURL(input.files[0])
-                        }
-                    }
-                </script>
-                    
-            </div>
-            <div class="col s12 m8">
+        <div class="row address-img-div">
+            <div class="col s8 m8 address-div">
                 <textarea name="addr" class="materialize-textarea">{{addr}}</textarea>
             </div>
-        </div>
-        <div class="row center">
-            <div class="col s12">
-                <textarea name="notes" class="materialize-textarea" placeholder="Notes, i.e. times of availability"></textarea>
+            <div class="col s4 m4 image-div">
+                <label for="input-image">
+                    <i class="material-icons medium">photo_camera</i>
+                </label>
+                <input id="input-image" class="display_none" type="file" name="image" accept="image/x-png,image/gif,image/jpeg"/>
             </div>
-            <button type="submit" class="btn rounded blue lighten-3">Add Spot</button>
-            <a href="{%url 'main-app-home'%}" class="btn rounded grey left">Back</a>
-            
+        </div>
+        <div class="row center notes-div">
+            <textarea name="notes" class="materialize-textarea" placeholder="Notes, i.e. times of availability"></textarea>
+        </div>
+        <div class="row center btns-div">
+            <button type="submit" class="btn rounded blue lighten-3 col s12">Add Spot</button>
+            <a href="{%url 'main-app-home'%}" class="btn rounded grey left col s12">Back</a>
         </div>
     </form>  
 </div>
