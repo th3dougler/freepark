@@ -19,9 +19,22 @@
             </div>
             <div class="col s4 m4 image-div">
                 <label for="input-image">
-                    <i class="material-icons medium">photo_camera</i>
+                    <i id="default-image" class="material-icons medium">photo_camera</i>
+                    <img id="output" style="max-height: 100px; max-width: 100px">
                 </label>
                 <input id="input-image" class="display_none" type="file" name="image" accept="image/x-png,image/gif,image/jpeg"/>
+                <script>
+                    let inputImage = document.getElementById('input-image');
+                    inputImage.onchange = function(e){
+                        if(e.target.files && e.target.files[0]){
+                            let output = document.getElementById('output');
+                            output.src = URL.createObjectURL(e.target.files[0]);
+                            output.onload = ()=>{
+                            URL.revokeObjectURL(output.src)
+                        }
+                        }
+                    }
+                </script>
             </div>
         </div>
         <div class="row center notes-div">
