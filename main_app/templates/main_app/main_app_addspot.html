@@ -15,7 +15,22 @@
         
         <div class="row">
             <div class="col s12 m4">
-                <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg"  />
+                <img id="image-preview" class="responsive-img small">
+                <label for="image-input" class="btn blue lighten-3">Add Photo</label>
+                <input type="file" id="image-input" name="image" style="opacity:0; z-index:-1" accept="image/x-png,image/gif,image/jpeg"  />
+                <script>
+                    let input = document.getElementById('image-input')
+                    input.onchange = function(){
+                        if(input.files && input.files[0]){
+                            let reader = new FileReader();
+                            reader.onload = function(e){
+                                document.getElementById('image-preview').src = e.target.result;
+                            }
+                            reader.readAsDataURL(input.files[0])
+                        }
+                    }
+                </script>
+                    
             </div>
             <div class="col s12 m8">
                 <textarea name="addr" class="materialize-textarea">{{addr}}</textarea>
