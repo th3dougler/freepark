@@ -9,7 +9,7 @@ let results;
 //input ajax calls from module
 import * as ajaxFunc from "./modules/ajax_functions.js";
 //geosearch and autocomplete init
-import * as searchBar from "./modules/search_bar.js";
+
 
 document.addEventListener("DOMContentLoaded", init());
 
@@ -35,7 +35,7 @@ function onLocationError(e) {
 async function onClick(e) {
   tempLayer.clearLayers()
   
-  let resObject = await searchBar.geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
+  let resObject = await geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
   
   let tempMarker = L.marker(e.latlng,{icon: greenIcon}).addTo(tempLayer)
     .bindPopup(`${Object.keys(resObject)[0]} <br/>

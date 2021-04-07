@@ -1,14 +1,15 @@
 {%extends "base.html" %}
 {%block content%}
-<div id="spot-image-container" class="center" style="background-color: grey;">
-  <img style="max-height: 40vh;" src='{{spot.url}}'>
-  
-  <div class="row grey lighten-4">
-    <a href="#" class="col s3">View</a>
-    <a href="#" class="col s3">Report</a>
-    <a href="#" class="col s3">Add Review</a>
-    <a href="#" class="col s3">Direction</a>
+<div id="spot-image-container" class="center" style="height: 40vh; background-color: grey;">
+  <img style="max-width: 100%;" class="responsive-img" src='{{spot.url}}'>
 </div>
+<div>
+    <div class="row grey lighten-4 center">
+        <a href="#" class="col s3">View</a>
+        <a href="#" class="col s3">Report</a>
+        <a href="#" class="col s3">Add Review</a>
+        <a href="#" class="col s3">Direction</a>
+    </div>
 </div>
 
 <div class=container>
