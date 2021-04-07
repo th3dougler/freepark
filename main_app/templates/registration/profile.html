@@ -1,72 +1,82 @@
 {%extends "base.html" %}
+{% load static %}
 {%block content%}
 
 {%if user.is_authenticated %}
+
 <div class="container">
     <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <div class=" row valign-wrapper">
-                        <div class="col s2">
-                            <form id="update-profile-pic" action="{%url 'add-photo' %}" method="POST" enctype="multipart/form-data">
-                                     {% csrf_token %}   
-                            <label for="input-image">
-                                <img src="{{user.profile.url}}" id="output" class="responsive-img circle">  
-                            </label>
-                            <input id="input-image" class="display_none" type="file" name="input-image" accept="image/x-png,image/gif,image/jpeg"/>
-                            </form>  
-                            <script>
-                                let inputImage = document.getElementById('input-image');
-                                inputImage.onchange = function(e){
-                                    if(e.target.files && e.target.files[0]){
-                                        let output = document.getElementById('output');
-                                        output.src = URL.createObjectURL(e.target.files[0]);
-                                        document.getElementById("update-profile-pic").submit();
-                                        output.onload = ()=>{
-                                        URL.revokeObjectURL(output.src)
-                                    }
-                                    }
+        <div class="card col s12">
+            <div class="card-content">
+                <div class=" row valign-wrapper">
+                    <div class="col">
+                        <form id="update-profile-pic" action="{%url 'add-photo' %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}   
+                        <label for="input-image">
+                            <img src="{{user.profile.url}}" id="output" class="responsive-img circle">  
+                        </label>
+                        <input id="input-image" class="display_none" type="file" name="input-image" accept="image/x-png,image/gif,image/jpeg"/>
+                        </form>  
+                        <script>
+                            let inputImage = document.getElementById('input-image');
+                            inputImage.onchange = function(e){
+                                if(e.target.files && e.target.files[0]){
+                                    let output = document.getElementById('output');
+                                    output.src = URL.createObjectURL(e.target.files[0]);
+                                    document.getElementById("update-profile-pic").submit();
+                                    output.onload = ()=>{
+                                    URL.revokeObjectURL(output.src)
                                 }
-                            </script>
-                        </div>
-                        <div class="col s5 flow-text">
-                            <h1>{{user.username}}</h1>
-                        </div>
-                        <div class="col s5 right-align">
-                            Favorites: 0
-                        </br>
-                        Spots Posted: {{user.spot_set.count}}
-                        </br>
-                        Spots Commented: {{user.comment_set.count}}
-                    
-                        </div>
-                        
+                                }
+                            }
+                        </script>
                     </div>
+                    <div class="col flow-text">
+                        <h1>{{user.username}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action center">
+                    <div class="col s4">
+                        <a href="javascript:openCollapsible(0);">Favorites: 0</a>
+                    </div>
+                    <div class="col s4">
+                        <a href="javascript:openCollapsible(1);">Spots Posted: {{user.spot_set.count}}</a>
+                    </div>
+                    <div class="col s4">
+                        <a href="javascript:openCollapsible(2);">Comments: {{user.comment_set.count}}</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="collapsible popout">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Favorites</div>
+                  <div class="collapsible-body">
                     {%for spot in user.spot_set.all%}
-                    <div class="card col s12">
-                        <div class="card-content">
-                            <div class="card-title ">
+                    <div class="card-panel">
                                 <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{spot.url}}">
                                 {{spot.user.username}}
-                                
-                            </div>
                                 {{spot.addr}}
-                            
-                        </div>
-                    
-                
-                    </div>
-                    {%endfor%}
-                    {%for comment in user.comment_set.all%}
-                    <div class="card col s12">
-                        <div class="card-content">
-                            <div class="card-title ">
-                                <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{comment.user.profile.url}}">
-                                {{comment.user.username}}
-                                
                             </div>
-                                {{comment.notes}}
+                    {%endfor%}
+                  </div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">place</i>Spots Posted</div>
+                  <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                </li>
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Comments</div>
+                  <div class="collapsible-body">
+                    {%for comment in user.comment_set.all%}
+                    <div class="card-panel">
+                                <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{comment.user.profile.url}}">
+                                User: {{comment.user.username}}
+                                Address: {{comment.spot.addr}}
+                                Comment: {{comment.notes}}
                                 <div class="yellow">
                                     {%for i in rating_range%}
                                         {%if i < comment.rating%}
@@ -76,17 +86,22 @@
                                         {%endif %}
                                     {%endfor %}
                                 </div>
-                            
-                        </div>
-                    
-                
-                    </div>
+                            </div>
                     {%endfor%}
-                </div>
-            </div>
+                  </div>
+                </li>
+              </ul>
         </div>
     </div>
 </div>
+<script src="{% static 'javascript/profile.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    let options= {}
+    var instances = M.Collapsible.init(elems, options);
+  });
+</script>
 {%endif%}
 {%endblock%}
 
