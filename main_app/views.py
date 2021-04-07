@@ -16,8 +16,24 @@ BUCKET = 'freepark-profile'
 # main_app
 
 def Main_App_Home(request):
-    return render(request, 'main_app/main_app_home.html')
+  return render(request, 'main_app/main_app_home.html')
 
+
+""" {'lat': ['43.650981839898684'],
+'lon': ['-79.42196846008302'],
+'addr': ['St. Joseph Della Madonna, 108, Harrison Street, Little Italy, University—Rosedale, Old Toronto, Toronto, Golden Horseshoe, Ontario, M6J 3A6, Canada']} """
+@login_required
+def addspot(request):
+  spotData = request.GET
+  lat = spotData.getlist('lat')[0]
+  lon = spotData.getlist('lon')[0]
+  addr = spotData.getlist('addr')[0]
+  print(addr)
+  return render(request, 'main_app/main_app_addspot.html', {
+    'lat': lat,
+    'lon': lon,
+    'addr': addr,
+  })
 
 # /accounts views
 @login_required
@@ -65,4 +81,4 @@ def signup(request):
   # A bad POST or a GET request, so render signup.html with an empty form
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)    
+  return render(request, 'registration/signup.html', context)  

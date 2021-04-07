@@ -10,7 +10,7 @@ body{
     z-index: 2;
 }
 #nav-bar{
-    background-color: rgba(34, 167, 240, 0.5);
+    background-color: snow;
     color: black;
     height: auto;
 }
@@ -32,11 +32,37 @@ body{
     color: black;
 }
 /* set logo size to fit navbar */
-#logo{
-    position: relative;
-    width: auto;
-    height: 100%;
-    z-index: 1;
+.sidenav-trigger>i{
+    color: #90CAF9 !important;
+}
+
+.search-div>form{
+    height: 38px;
+    margin-top: 10px;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid lightgray;
+    border-radius: 50px;
+}
+
+.input-field>i{
+    color: #90CAF9 !important;
+    margin-left: 20px;
+}
+
+.logo-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-div>a{
+    position:sticky;
 }
 /* Leaflet Map Stufff */
 html, body{
@@ -45,13 +71,21 @@ html, body{
     display: flex;
     flex-flow: column;
 }
+
+/* main map view */
 #map-container{
     height: 100%
 }
 #main-map {
     height: 100%
 }
-
+/* add/detail view */
+#map-container-sm{
+    height: 40vh
+}
+#main-map-sm {
+    height: 100%
+}
 
 /* profile image sizes */
 img.profile_icon{
@@ -60,4 +94,73 @@ img.profile_icon{
 }
 img.profile_sm{
     width: 100px;
+}
+
+.search-main{
+    border: 2px solid lightgray;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    /* margin-top: 25px; */
+    border-radius: 50px;
+    background-color: rgb(141, 182, 207);
+}
+
+.search-myinput{
+    max-width: 85%;
+    height: auto;
+}
+
+.address-img-div{
+    display: flex;
+    flex-direction: row;
+    height: 120px;
+    margin: 10px;
+}
+
+.address-div{
+    /* width: 50%;
+    height: 120px; */
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background-color: rgb(227, 245, 255);
+    margin-right: 5px;
+}
+
+.image-div{
+    /* width: 100%;
+    height: 120px; */
+    margin-left: 5px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(227, 245, 255);
+}
+
+.image-div>label>i{
+    color: #90CAF9 !important;
+}
+
+.notes-div{
+    width: auto;
+    height: 120px;
+    margin: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background-color: rgb(227, 245, 255);
+}
+
+.btns-div{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#input-image{
+    display: none;
+    visibility: none;
 }
