@@ -3,7 +3,7 @@
 {%block content%}
 
 {%if user.is_authenticated %}
-<a name="top"></a>
+
 <div class="container">
     <div class="row">
         <div class="card col s12">
@@ -13,7 +13,7 @@
                         <form id="update-profile-pic" action="{%url 'add-photo' %}" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}   
                         <label for="input-image">
-                            <img src="{{user.profile.url}}" id="output" class="responsive-img circle">  
+                            <img src="{{user.profile.url}}" id="output" class="responsive-img circle profile_lg" >  
                         </label>
                         <input id="input-image" class="display_none" type="file" name="input-image" accept="image/x-png,image/gif,image/jpeg"/>
                         </form>  
@@ -37,43 +37,55 @@
                 </div>
             </div>
             <div class="card-action center">
+                <div class="row">
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(0);">Favorites: 0</a>
+                        <a href="javascript:openCollapsible(0);" class="btn white  blue-text"><i class="material-icons">favorite</i></a> 0
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(1);">Spots Posted: {{user.spot_set.count}}</a>
+                        <a href="javascript:openCollapsible(1);" class="btn white blue-text"><i class="material-icons">place</i></a> {{user.spot_set.count}}
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(2);">Comments: {{user.comment_set.count}}</a>
+                        <a href="javascript:openCollapsible(2);" class="btn white blue-text"><i class="material-icons">comment</i></a> {{user.comment_set.count}}
                     </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col s12">
-            <ul class="collapsible popout">
+            <ul class="collapsible">
                 
                 <li>
                     <a name="0"></a>
-                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Favorites</div>
+                  <div class="collapsible-header"><i class="material-icons">favorite</i>Favorites</div>
                   <div class="collapsible-body">
-                    {%for spot in user.spot_set.all%}
-                    <div class="card-panel">
-                                <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{spot.url}}">
-                                {{spot.user.username}}
-                                {{spot.addr}}
-                            </div>
-                    {%endfor%}
                   </div>
                 </li>
                 <li>
                     <a name="1"></a>
                   <div class="collapsible-header"><i class="material-icons">place</i>Spots Posted</div>
-                  <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                  <div class="collapsible-body">
+                    {%for spot in user.spot_set.all%}
+                    <div class="card-panel">
+                        <div class="row">
+                            <div class="col s4 m4 l2">
+                                <img class="materialboxed circle profile_sm" src="{{spot.url}}">
+                            </div>
+                            <div class="col s8 m8 l3">
+                                Lat:{{spot.lat}} <br/> Lon {{spot.lon}}
+                            </div>
+                            <div class="col s12 m12 l7">
+                                Addr: {{spot.addr}}
+                            </div>
+                        </div>
+
+                                <blockquote>{{spot.notes}}</blockquote>
+                            </div>
+                    {%endfor%}
+                    </div>
                 </li>
                 <li>
                     <a name="2"></a>
-                  <div class="collapsible-header"><i class="material-icons">whatshot</i>Comments</div>
+                  <div class="collapsible-header"><i class="material-icons">comment</i>Comments</div>
                   <div class="collapsible-body">
                     {%for comment in user.comment_set.all%}
                     <div class="card-panel">
@@ -95,7 +107,6 @@
                   </div>
                 </li>
               </ul>
-        </div>
     </div>
 </div>
 <div class="fixed-action-btn">

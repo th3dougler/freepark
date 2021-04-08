@@ -10,6 +10,8 @@ function init() {
     M.FloatingActionButton.init(elems, {
       hoverEnabled: false
     });
+    elems = document.querySelectorAll('.materialboxed');
+    M.Materialbox.init(elems, options);
   }
   
 function openCollapsible(idx){

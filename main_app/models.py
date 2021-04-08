@@ -20,13 +20,17 @@ class Spot(models.Model):
     lat = models.FloatField()
     lon = models.FloatField()
     geojson = models.TextField()
-    url = models.CharField(max_length=200, default="http://placekitten.com/500/500")
+    url = models.CharField(max_length=200, default="http://placekitten.com/1500/900")
     
     def __str__(self):
         return f'{self.user} - [{self.lat},{self.lon}]'
     def addr(self):
         geojson = json.loads(self.geojson)
         return geojson['properties']['name']
+    def notes(self):
+        geojson = json.loads(self.geojson)
+        return geojson['properties']['notes']
+    
     
 
 class Comment(models.Model):

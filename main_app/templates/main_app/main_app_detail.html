@@ -1,7 +1,7 @@
 {%extends "base.html" %}
 {%block content%}
-<div id="spot-image-container" class="center" style="height: 40vh; background-color: grey;">
-  <img style="height: 100%" class="responsive-img" src='{{spot.url}}'>
+<div class="row center">
+  <img class="materialboxed responsive-img "  src="{{spot.url}}" style="height: 40vh">
 </div>
 <div>
     <div class="row grey lighten-4 center">
@@ -36,6 +36,8 @@
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems);
+        elems = document.querySelectorAll('.materialboxed');
+        M.Materialbox.init(elems, {});
   });
   
   </script>

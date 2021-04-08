@@ -127,10 +127,22 @@ html, body{
 /* profile image sizes */
 img.profile_icon{
     width: 32px;
+    height: 32px;
+    
     margin-top: 15px;
 }
 img.profile_sm{
-    width: 100px;
+    width: 64px;
+    height: 64px;   
+}
+img.profile_lg{
+    width: 300px;
+    height: 300px;   
+}
+
+
+#spot-image-container{
+    overflow: hidden;
 }
 
 .search-main{
