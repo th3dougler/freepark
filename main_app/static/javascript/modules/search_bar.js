@@ -1,15 +1,27 @@
-var provider = new GeoSearch.OpenStreetMapProvider();
+var provider;
+(async function(){
+  key = await fetchKey()
+  provider = new GeoSearch.OpenCageProvider({
+    params: {
+      key: key,
+    },
+  });
+})();
 let results = [];
 let isMapView = false;
 document.addEventListener("DOMContentLoaded", init());
 
-
+async function fetchKey(){
+  return await fetch('/api/getkey').then(res => res.json())
+}
+fetchKey()
 /* Performs geosearch, returns resObject which is a dictionary of the results
 because it is the preferred format for Materialize Autocomplete object */
 async function geosearch(str, getFirstOnly = false) {
     try {
       //get geosearch results, pipe them into object sent to materialize autocomplete
       results = await provider.search({ query: str });
+      console.log(results)
       if(getFirstOnly){
         return results[0];
       }else{

@@ -30,6 +30,14 @@ class Spot(models.Model):
     def notes(self):
         geojson = json.loads(self.geojson)
         return geojson['properties']['notes']
+    def rating(self):
+        comment_set = self.comment_set.all()
+        rating = 0
+        idx = 0
+        for comment in comment_set:
+            rating += int(comment.rating)
+            idx+=1
+        return rating/idx
     
     
 
@@ -44,6 +52,12 @@ class Comment(models.Model):
         ])
     notes = models.CharField(max_length=150)
     
+    def __str__(self):
+        return f'{self.user} - [{self.spot}]'
+
+class Favorite(models.Model):
+    spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.user} - [{self.spot}]'
 

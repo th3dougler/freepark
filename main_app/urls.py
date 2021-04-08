@@ -8,6 +8,7 @@ urlpatterns= [
     
     path('<int:pk>/detail', views.Main_App_Detail, name="main-app-detail"),
     path('<int:pk>/comment', views.Main_App_Add_Comment, name="main-app-add-comment"),
+    path('<int:pk>/addfavorite', views.Main_App_Add_Favorite, name="add-favorite"),
     
     
     path('addspot/', views.addspot, name="main-app-addspot"),
@@ -16,6 +17,7 @@ urlpatterns= [
     path('accounts/profile/', views.profile, name="profile"),
 
     path('accounts/profile/add_photo', views.add_photo, name="add-photo"),
+    
 
     # path('accounts/profile/favorites/', views.favorites, name='favorites'),
     
@@ -23,4 +25,6 @@ urlpatterns= [
     
     path('api/spotlist', api_views.spotlist, name='api-spotlist'),
     path('api/addspot', api_views.addspot, name='api-addspot'),
+    path('api/getkey', api_views.getkey, name='api-getkey'),
+    
 ]

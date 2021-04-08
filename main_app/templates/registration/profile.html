@@ -3,8 +3,8 @@
 {%block content%}
 
 {%if user.is_authenticated %}
-
-        <div class="card col s12">
+<div style="background-color: #EDF9FB; height: 100%">
+        <div class="card col s12" style="margin-top: 0">
             <div class="card-content">
                 <div class="row center">
                     <div class="col s12">
@@ -43,25 +43,58 @@
                         
                     
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(0);" class="btn-floating white blue-text"><i class="material-icons blue-text">favorite</i></a> 0
+                        <a href="javascript:openCollapsible(0);" class="btn-floating white blue-text"><i class="material-icons blue-text">favorite</i></a>&nbsp;&nbsp;{{user.favorite_set.count}}
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(1);" class="btn-floating white blue-text"><i class="material-icons blue-text">place</i></a> {{user.spot_set.count}}
+                        <a href="javascript:openCollapsible(1);" class="btn-floating white blue-text"><i class="material-icons blue-text">place</i></a>&nbsp;&nbsp;{{user.spot_set.count}}
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(2);" class="btn-floating white blue-text"><i class="material-icons blue-text">comment</i></a> {{user.comment_set.count}}
+                        <a href="javascript:openCollapsible(2);" class="btn-floating white blue-text"><i class="material-icons blue-text">comment</i></a>&nbsp;&nbsp;{{user.comment_set.count}}
                     </div>
                 </div>
                 </div>
             </div>
         </div>
-    <div>
+    <div >
             <ul class="collapsible">
                 
                 <li>
                     <a name="0"></a>
                   <div class="collapsible-header"><i class="material-icons">favorite</i>Favorites</div>
                   <div class="collapsible-body">
+                    {%for favorite in user.favorite_set.all%}
+                    <a href="/{{spot.id}}/detail">
+                    <div class="card-panel black-text">
+                        <div class="row">
+                            <div class="col s3 m2 l1">
+                                <div class="center"><strong>{{favorite.spot.user.username}}</strong></div>
+                                <div class="profile_circle_sm valign-wrapper col s12">
+                                    <img class="profile_sm center-block" src="{{favorite.spot.url}}">
+                                       
+                                </div>
+                            </div>
+                            <div class="col s9 m10 l11">
+                                 
+                                <strong>{{favorite.spot.addr}}</strong><br/>
+                                <em> [Lat:{{favorite.spot.lat}}, Long:{{favorite.spot.lon}}]</em>
+                                <blockquote>{{favorite.spot.notes}}</blockquote>
+                                <div class="left">
+                                    {%for i in rating_range%}
+                                    {%if i < favorite.spot.rating%}
+                                        <img src="{%static '/images/star_check.png'%}">
+                                    {%else%}
+                                        <img src="{%static '/images/star_uncheck.png'%}">
+                                    {%endif %}
+                                    {%endfor %}
+                                </div>
+                                <div class="right">
+                                    <a href="{%url 'add-favorite' favorite.spot.id %}" class="red-text"><i class="material-icons">favorite</i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                    {%endfor%}
                   </div>
                 </li>
                 <li>
@@ -70,26 +103,30 @@
                   <div class="collapsible-body">
                     {%for spot in user.spot_set.all%}
                     <a href="/{{spot.id}}/detail">
-                    <div class="card-panel">
+                    <div class="card-panel black-text">
                         <div class="row">
-                            <div class="col s4 m4 l2">
-                                
-                                <div class="profile_circle_sm valign-wrapper">
+                            <div class="col s3 m2 l1">
+                                <div class="profile_circle_sm valign-wrapper col s12">
                                     <img class="profile_sm center-block" src="{{spot.url}}">    
                                 </div>
-                                
                             </div>
-                            <div class="col s8 m8 l3">
-                                Lat:{{spot.lat}} <br/> Lon {{spot.lon}}
-                            </div>
-                            <div class="col s12 m12 l7">
-                                Addr: {{spot.addr}}
+                            <div class="col s9 m10 l11">
+                                <strong>{{spot.addr}}</strong><br/>
+                                <em> [Lat:{{spot.lat}}, Long:{{spot.lon}}]</em>
+                                <blockquote>{{spot.notes}}</blockquote>
+                                <div >
+                                    {%for i in rating_range%}
+                                    {%if i < spot.rating%}
+                                        <img src="{%static '/images/star_check.png'%}">
+                                    {%else%}
+                                        <img src="{%static '/images/star_uncheck.png'%}">
+                                    {%endif %}
+                                    {%endfor %}
+                                </div>
                             </div>
                         </div>
-
-                                <blockquote>{{spot.notes}}</blockquote>
-                            </div>
-                        </a>
+                    </div>
+                    </a>
                     {%endfor%}
                     </div>
                 </li>
@@ -98,7 +135,8 @@
                   <div class="collapsible-header"><i class="material-icons">comment</i>Comments</div>
                   <div class="collapsible-body">
                     {%for comment in user.comment_set.all%}
-                    <div class="card-panel">
+                    <a href="/{{comment.spot.id}}/detail">
+                    <div class="card-panel black-text">
                                 <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{comment.user.profile.url}}">
                                 User: {{comment.user.username}}
                                 Address: {{comment.spot.addr}}
@@ -113,6 +151,7 @@
                                     {%endfor %}
                                 </div>
                             </div>
+                        </a>
                     {%endfor%}
                   </div>
                 </li>
@@ -124,6 +163,7 @@
     </a>
   </div>
 <script src="{% static 'javascript/profile.js' %}"></script>
+</div>
 {%endif%}
 {%endblock%}
 

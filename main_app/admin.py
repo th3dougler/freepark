@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from .models import Spot, Comment, Profile
+from .models import Spot, Comment, Profile, Favorite
 
 # Register your models here.
 class ProfileInline(admin.StackedInline):
@@ -16,4 +16,5 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Spot)
 admin.site.register(Comment)
+admin.site.register(Favorite)
 admin.site.register(Profile)
