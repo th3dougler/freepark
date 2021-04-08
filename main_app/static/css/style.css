@@ -87,7 +87,7 @@ body{
 }
 
 #logo{
-    /* content: url("{% static 'images/SVG/Logo_Alt2.svg' %}"); */
+
     height: 60%;
     width: auto;
 }
