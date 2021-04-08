@@ -79,6 +79,7 @@ body{
 }
 
 .logo-div>a{
+    position:-webkit-sticky;
     position:sticky;
     display: flex;
     flex-direction: row;
