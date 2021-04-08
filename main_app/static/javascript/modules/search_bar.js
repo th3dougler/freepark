@@ -21,7 +21,6 @@ async function geosearch(str, getFirstOnly = false) {
     try {
       //get geosearch results, pipe them into object sent to materialize autocomplete
       results = await provider.search({ query: str });
-      console.log(results)
       if(getFirstOnly){
         return results[0];
       }else{
@@ -62,15 +61,7 @@ async function onSubmit(e){
   if (!finalResult){
     finalResult = await geosearch(formData.get('search'), true)
   }
-  
-  console.log(finalResult)
-  if(isMapView){
-    let map = document.getElementById('main-map')._leaflet_map
-    map.panTo([finalResult.y, finalResult.x],{animate: true, duration: 1})
-    console.log([finalResult.y, finalResult.x])
-  }else{
-    
-  }
+  window.location.replace(`/latlng?lat=${finalResult.y}&lon=${finalResult.x}`);
 }
   
 //get materialize dom object, add event listener to update autocomplete  

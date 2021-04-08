@@ -23,6 +23,18 @@ def Main_App_Home(request, spotid = None):
   else:
     spot= None
   return render(request, 'main_app/main_app_home.html',{'spot': spot})
+
+@login_required
+def Main_App_Home_Geo(request):
+  spot = {
+    'geometry':{
+      'type': "Point",
+      'coordinates': [request.GET.get('lon'),request.GET.get('lat')]
+    }
+  }
+  return render(request, 'main_app/main_app_home.html', {'spot': json.dumps(spot)})
+
+
 @login_required
 def Main_App_Detail(request, pk):
   thisSpot = Spot.objects.get(pk=pk)
