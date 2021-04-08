@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
     <!-- Leaflet JS+CSS CDN-->
+    <script src="https://unpkg.com/unfetch/polyfill"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
@@ -33,13 +34,10 @@
             </div>
             <div class="col s8 m6 search-div center">
                 {%if user.is_authenticated%}
-                <form>
+                <form name="search-form" id="search-form">
                     <div class="input-field">
                       <i class="material-icons black-text">search</i>
-                        <input id="search" name="search" placeholder="Search" type="search" list="search-list" class="autocomplete" autocomplete="off" required>    
-<!--                         <datalist id="search-list">
-                            <option value="...">
-                        </datalist> -->
+                        <input id="search" name="search" placeholder="Search" type="search" list="search-list" class="autocomplete" autocomplete="off" required>
                     </div>
                 </form>  
                 {%endif%}
@@ -80,7 +78,9 @@
     {%block content%}
     
     {%endblock%}
+    {%if user.is_authenticated%}
     <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
     <script src="{% static 'javascript/modules/search_bar.js' %}"></script>
+    {%endif%}
 </body>
 </html>

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', init);
+
 var collapsibles;
-let favorites = false, spots = false, comments = false;
 
 function init() {
     var elems = document.querySelectorAll('.collapsible');
@@ -12,6 +12,8 @@ function init() {
     });
     elems = document.querySelectorAll('.materialboxed');
     M.Materialbox.init(elems, options);
+    elems = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(elems, options);
   }
   
 function openCollapsible(idx){

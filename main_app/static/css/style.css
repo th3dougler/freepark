@@ -79,6 +79,7 @@ body{
 }
 
 .logo-div>a{
+    position:-webkit-sticky;
     position:sticky;
     display: flex;
     flex-direction: row;
@@ -132,12 +133,47 @@ img.profile_icon{
     margin-top: 15px;
 }
 img.profile_sm{
-    width: 64px;
-    height: 64px;   
+    max-height:64px;
+    width: auto;
+    height: auto;   
 }
 img.profile_lg{
-    width: 300px;
-    height: 300px;   
+    max-height:120px;
+    width: auto;
+    height: auto;   
+}
+div.profile_circle{
+    position:relative;
+    width:125px; height:125px;
+    margin:0 auto;
+    overflow:hidden;
+    
+}
+
+div.profile_circle:after{
+    content:'';
+    position:absolute;
+    left:50%; top:50%;
+    transform: translate(-50%, -50%);
+    border-radius:100%;
+    width:100px; height:100px;
+    box-shadow: 0px 0px 0px 2000px white;
+}
+div.profile_circle_sm{
+    position:relative;
+    width:66px; height:66px;
+    margin:0 auto;
+    overflow:hidden;
+    
+}
+div.profile_circle_sm:after{
+    content:'';
+    position:absolute;
+    left:50%; top:50%;
+    transform: translate(-50%, -50%);
+    border-radius:100%;
+    width:64px; height:64px;
+    box-shadow: 0px 0px 0px 2000px white;
 }
 
 

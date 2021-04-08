@@ -4,18 +4,19 @@
 
 {%if user.is_authenticated %}
 
-<div class="container">
-    <div class="row">
         <div class="card col s12">
             <div class="card-content">
-                <div class=" row valign-wrapper">
-                    <div class="col">
+                <div class="row center">
+                    <div class="col s12">
                         <form id="update-profile-pic" action="{%url 'add-photo' %}" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}   
                         <label for="input-image">
-                            <img src="{{user.profile.url}}" id="output" class="responsive-img circle profile_lg" >  
+                            
+                            <div class="valign-wrapper profile_circle tooltipped" data-position="left" data-tooltip="Click to change profile picture">
+                                <img src="{{user.profile.url}}" id="output" class="profile_lg center-block" >
+                            </div>  
                         </label>
-                        <input id="input-image" class="display_none" type="file" name="input-image" accept="image/x-png,image/gif,image/jpeg"/>
+                        <input id="input-image" class="display_none" type="file" name="input-image" accept="image/x-png,image/gif,image/jpeg" />
                         </form>  
                         <script>
                             let inputImage = document.getElementById('input-image');
@@ -31,27 +32,30 @@
                             }
                         </script>
                     </div>
-                    <div class="col flow-text">
-                        <h1>{{user.username}}</h1>
+                    <div class="col s12">
+                        <h4>{{user.username}}</h4>
                     </div>
                 </div>
             </div>
             <div class="card-action center">
-                <div class="row">
+                <div class="container">
+                    <div class="row">
+                        
+                    
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(0);" class="btn white  blue-text"><i class="material-icons">favorite</i></a> 0
+                        <a href="javascript:openCollapsible(0);" class="btn-floating white blue-text"><i class="material-icons blue-text">favorite</i></a> 0
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(1);" class="btn white blue-text"><i class="material-icons">place</i></a> {{user.spot_set.count}}
+                        <a href="javascript:openCollapsible(1);" class="btn-floating white blue-text"><i class="material-icons blue-text">place</i></a> {{user.spot_set.count}}
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(2);" class="btn white blue-text"><i class="material-icons">comment</i></a> {{user.comment_set.count}}
+                        <a href="javascript:openCollapsible(2);" class="btn-floating white blue-text"><i class="material-icons blue-text">comment</i></a> {{user.comment_set.count}}
                     </div>
+                </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
+    <div>
             <ul class="collapsible">
                 
                 <li>
@@ -65,10 +69,15 @@
                   <div class="collapsible-header"><i class="material-icons">place</i>Spots Posted</div>
                   <div class="collapsible-body">
                     {%for spot in user.spot_set.all%}
+                    <a href="/{{spot.id}}/detail">
                     <div class="card-panel">
                         <div class="row">
                             <div class="col s4 m4 l2">
-                                <img class="materialboxed circle profile_sm" src="{{spot.url}}">
+                                
+                                <div class="profile_circle_sm valign-wrapper">
+                                    <img class="profile_sm center-block" src="{{spot.url}}">    
+                                </div>
+                                
                             </div>
                             <div class="col s8 m8 l3">
                                 Lat:{{spot.lat}} <br/> Lon {{spot.lon}}
@@ -80,6 +89,7 @@
 
                                 <blockquote>{{spot.notes}}</blockquote>
                             </div>
+                        </a>
                     {%endfor%}
                     </div>
                 </li>
@@ -93,12 +103,12 @@
                                 User: {{comment.user.username}}
                                 Address: {{comment.spot.addr}}
                                 Comment: {{comment.notes}}
-                                <div class="yellow">
+                                <div>
                                     {%for i in rating_range%}
                                         {%if i < comment.rating%}
-                                            *
+                                            <img src="{%static '/images/star_check.png'%}">
                                         {%else%}
-                                            -
+                                            <img src="{%static '/images/star_uncheck.png'%}">
                                         {%endif %}
                                     {%endfor %}
                                 </div>
@@ -108,7 +118,6 @@
                 </li>
               </ul>
     </div>
-</div>
 <div class="fixed-action-btn">
     <a href="#top"class="btn-floating btn-large white">
       <i class="large material-icons black-text">arrow_upward</i>
