@@ -1,14 +1,35 @@
 {%extends "base.html" %}
+{% load static %}
 {%block content%}
 <div class="row center">
   <img class="materialboxed responsive-img "  src="{{spot.url}}" style="height: 40vh">
 </div>
-<div>
-    <div class="row grey lighten-4 center">
-        <a href="{%url 'main-app-home-refer' spot.id %}" class="col s3">View</a>
-        <a href="#" class="col s3">Report</a>
-        <a href="#review-modal" class="col s3 modal-trigger">Add Review</a>
-        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{spot.lat}}%2c{{spot.lon}}" class="col s3">Direction</a>
+<div class="container">
+    <div class="row center">
+        <a href="{%url 'main-app-home-refer' spot.id %}" class="col s3">
+            <div class ="col s12">
+                <img class="profile_icon" src="{% static 'images/icon_view.png'%}">
+            </div>
+            View
+        </a>
+        <a target="_blank" href="mailto:admin@spotter.com?subject=Report Spot #{{spot.id}}" class="col s3">
+            <div class ="col s12">
+                <img class="profile_icon" src="{% static 'images/icon_report.png'%}">
+            </div>
+            Report
+        </a>
+        <a href="#review-modal" class="col s3 modal-trigger">
+            <div class ="col s12">
+                <img class="profile_icon" src="{% static 'images/icon_review.png'%}">
+            </div>
+            Add Review
+        </a>
+        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{spot.lat}}%2c{{spot.lon}}" class="col s3">
+            <div class ="col s12">
+                <img class="profile_icon" src="{% static 'images/icon_dir.png'%}">
+            </div>
+            Direction
+        </a>
     </div>
 </div>
 
@@ -43,27 +64,28 @@
   </script>
 <div class=container>
     {%for comment in spot.comment_set.all%}
-    <div class="card col s12">
-        <div class="card-content">
-            <div class="card-title ">
-                <img class="responsive-img circle" style="height: 64px; width: 64px" src="{{comment.user.profile.url}}">
-                {{comment.user.username}}
-                
-            </div>
-                {{comment.notes}}
-                <div class="yellow">
-                    {%for i in rating_range%}
-                        {%if i < comment.rating%}
-                            *
-                        {%else%}
-                            -
-                        {%endif%}
-                    {%endfor%}
+    <div class="card">
+        <div class="row valign-wrapper">
+            <div class="col s3 ">
+                <div class="profile_circle_sm valign-wrapper">
+                    <img class="profile_sm center-block" src="{{comment.user.profile.url}}">    
                 </div>
-            
+            </div>
+            <div class="col s9">
+                <strong>{{comment.user.username}}</strong>
+                <p> {{comment.notes}}</p>
+                    <div>
+                        {%for i in rating_range%}
+                        {%if i < comment.rating%}
+                                <img src="{%static '/images/star_check.png'%}">
+                            {%else%}
+                                <img src="{%static '/images/star_uncheck.png'%}">
+                            {%endif %}
+                        {%endfor%}
+                    </div>
+                
+            </div>  
         </div>
-    
-
     </div>
     {%endfor%}
 </div>

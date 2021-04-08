@@ -12,6 +12,8 @@ function init() {
     });
     elems = document.querySelectorAll('.materialboxed');
     M.Materialbox.init(elems, options);
+    elems = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(elems, options);
   }
   
 function openCollapsible(idx){
