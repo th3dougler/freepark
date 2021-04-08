@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 body{
     background-color: white;
 }
@@ -46,7 +50,7 @@ input[type=submit]{
 }
 
 #logo{
-    height: 60%;
+    height: 40%;
     width: auto;
 }
 
@@ -65,7 +69,7 @@ input[type=submit]{
 }
 
 form{
-    width: auto;
+    width: 30%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -75,18 +79,19 @@ form{
 
 #signup-form input:not([type=submit]){
     border: 1px solid rgb(71, 71, 71);
-    background-color: rgb(141, 182, 207);   
+    background-color: #EDF9FB;    
     border-radius: 20px;
-    width: 96%;
-    padding: 0 2%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #signup-form input[type=submit]{
     border: 1px solid rgb(71, 71, 71);
-    background: rgb(33, 116, 184);
+    background: linear-gradient(to right,#49C2E4, #4587E1);
     border-radius: 10px;
     width: 100%;
     align-self: center;
+    margin-top: 10%;
 }
 
 #signup-form span,ul,li{
@@ -108,5 +113,8 @@ p:empty{
     }
     #signup-form input[type=submit]{
         width: 50%;
+    }
+    form{
+        width: auto;
     }
 }

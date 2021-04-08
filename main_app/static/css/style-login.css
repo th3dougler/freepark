@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 body{
     background-color: white;
 }
@@ -40,8 +44,8 @@ html, body{
 }
 
 #logo{
-    height: 70%;
-    width: auto;
+    width: 70%;
+    margin-bottom: 20px;
 }
 
 #login-form{
@@ -62,15 +66,16 @@ form{
 
 #login-form input:not([type=submit]){
     border: 1px solid rgb(71, 71, 71);
-    background-color: rgb(141, 182, 207);   
+    background-color: #EDF9FB;   
     border-radius: 20px;
-    width: 90%;
+    width: 100%;
     padding: 0 10px;
+    box-sizing: border-box;
 }
 
 #login-form input[type=submit]{
     border: 1px solid rgb(71, 71, 71);
-    background: rgb(33, 116, 184);
+    background: linear-gradient(to right,#49C2E4, #4587E1);
     border-radius: 10px;
     width: 100%;
     align-self: center;
@@ -85,5 +90,8 @@ form{
     }
     nav{
         display: none;
+    }
+    #signup-div{
+        margin-top: 80%;
     }
 }
