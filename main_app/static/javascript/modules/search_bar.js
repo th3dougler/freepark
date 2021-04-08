@@ -54,7 +54,7 @@ async function onSubmit(e){
   console.log(finalResult)
   if(isMapView){
     let map = document.getElementById('main-map')._leaflet_map
-    map.flyTo([finalResult.y, finalResult.x],15)
+    map.panTo([finalResult.y, finalResult.x],{animate: true, duration: 1})
     console.log([finalResult.y, finalResult.x])
   }else{
     
