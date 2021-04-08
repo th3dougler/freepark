@@ -1,3 +1,9 @@
+L.Map.addInitHook(function () {
+  // Store a reference of the Leaflet map object on the map container,
+  // so that it could be retrieved from DOM selection.
+  // https://leafletjs.com/reference-1.3.4.html#map-getcontainer
+  this.getContainer()._leaflet_map = this;
+});
 let map = L.map("main-map").fitWorld();
 var myLayer = L.geoJSON([],{
     onEachFeature: (feature, layer)=>{

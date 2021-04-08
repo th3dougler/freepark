@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', init);
+
 var collapsibles;
-let favorites = false, spots = false, comments = false;
 
 function init() {
     var elems = document.querySelectorAll('.collapsible');
