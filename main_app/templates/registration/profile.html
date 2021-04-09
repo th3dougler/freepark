@@ -43,13 +43,16 @@
                         
                     
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(0);" class="btn-floating white blue-text"><i class="material-icons blue-text">favorite</i></a>&nbsp;&nbsp;{{user.favorite_set.count}}
+                        <a href="javascript:openCollapsible(0);" 
+                        class="btn-floating white blue-text"><i class="material-icons blue-text">favorite</i></a>&nbsp;&nbsp;{{user.favorite_set.count}}
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(1);" class="btn-floating white blue-text"><i class="material-icons blue-text">place</i></a>&nbsp;&nbsp;{{user.spot_set.count}}
+                        <a href="javascript:openCollapsible(1);" 
+                        class="btn-floating white blue-text"><i class="material-icons blue-text">place</i></a>&nbsp;&nbsp;{{user.spot_set.count}}
                     </div>
                     <div class="col s4">
-                        <a href="javascript:openCollapsible(2);" class="btn-floating white blue-text"><i class="material-icons blue-text">comment</i></a>&nbsp;&nbsp;{{user.comment_set.count}}
+                        <a href="javascript:openCollapsible(2);" 
+                        class="btn-floating white blue-text"><i class="material-icons blue-text">comment</i></a>&nbsp;&nbsp;{{user.comment_set.count}}
                     </div>
                 </div>
                 </div>
@@ -58,7 +61,7 @@
     <div >
             <ul class="collapsible">
                 
-                <li>
+                <li {%if default == 'favorite'%} class="active" {%endif%}>
                     <a name="0"></a>
                   <div class="collapsible-header"><i class="material-icons">favorite</i>Favorites</div>
                   <div class="collapsible-body">
@@ -97,7 +100,7 @@
                     {%endfor%}
                   </div>
                 </li>
-                <li>
+                <li {%if default == 'spot'%} class="active" {%endif%}>
                     <a name="1"></a>
                   <div class="collapsible-header"><i class="material-icons">place</i>Spots Posted</div>
                   <div class="collapsible-body">
@@ -130,7 +133,7 @@
                     {%endfor%}
                     </div>
                 </li>
-                <li>
+                <li {%if default == 'comment'%} class="active" {%endif%}>
                     <a name="2"></a>
                   <div class="collapsible-header"><i class="material-icons">comment</i>Comments</div>
                   <div class="collapsible-body">

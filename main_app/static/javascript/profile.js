@@ -11,9 +11,9 @@ function init() {
       hoverEnabled: false
     });
     elems = document.querySelectorAll('.materialboxed');
-    M.Materialbox.init(elems, options);
+    M.Materialbox.init(elems);
     elems = document.querySelectorAll('.tooltipped');
-    M.Tooltip.init(elems, options);
+    M.Tooltip.init(elems);
   }
   
 function openCollapsible(idx){

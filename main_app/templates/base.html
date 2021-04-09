@@ -65,7 +65,7 @@
     <ul class="sidenav" id="mobile-demo">
         <li><a href="{%url 'main-app-home'%}">Home</a></li>
         {%if user.is_authenticated%}
-        <li><a href="#">Favorites</a></li>
+        <li><a href="{%url 'profile' %}?open=favorite">Favorites</a></li>
         <li><a href="{%url 'profile'%}" class="valign-wrapper">Profile
             <!-- <img class="profile_icon circle" src="{{user.profile.url}}"/> -->
             </a>

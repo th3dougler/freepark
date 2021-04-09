@@ -87,8 +87,10 @@ def addspot(request):
 # /accounts views
 @login_required
 def profile(request):
+  default = request.GET.get('open')
+  print (default)
   user_profile = Profile.objects.get(user_id = request.user.id)
-  return render(request, 'registration/profile.html',{'rating_range': range(0,5)})
+  return render(request, 'registration/profile.html',{'rating_range': range(0,5), 'default': default})
 
 # @login_required
 # def favorites(request):

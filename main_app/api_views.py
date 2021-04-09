@@ -33,6 +33,22 @@ def spotlist(request):
 # add a new Spot row, use image if it exists
 # in order to save the id of the row to the geojson, i save the row
 # then update the geojson column with the PK
+""" 
+  let address = (resObject !== undefined)? resObject.formatted : "";
+  let tempMarker = L.marker(e.latlng,{icon: greenIcon}).addTo(tempLayer)
+    .bindPopup(`${address} <br/>
+    <form action="/addspot/" method="GET">
+    <div style="text-align: center;">
+    <input type="hidden" name="lat" value="${e.latlng["lat"]}">
+    <input type="hidden" name="lon" value="${e.latlng["lng"]}">
+    <input type="hidden" name="addr" value="${address}">
+    <button class="btn blue lighten-3">Add Spot</button><br/>
+    </form>
+    <a href="#" class="btn-flat">Cancel</a><br/>
+    </div>`).openPopup()
+    tempLayer.addTo(map)
+    "<a href='/{newSpot.id}/detail'>Detail</a><br/><p>{body.get('addr')}</p> "
+"""
 @login_required
 def addspot(request):
     if request.method == 'POST':
@@ -44,6 +60,7 @@ def addspot(request):
             geojson = ""
         )
         newSpot.save()
+        popupContent = f'<div style="text-align: center;">{body.get("addr")}<br/><button href="/{newSpot.id}/detail"class="btn blue lighten-3">Add Spot</button><br/></div>'
         geojson = {
             "type": "Feature",
             "properties": {
@@ -51,7 +68,7 @@ def addspot(request):
                 "user": request.user.id,
                 "spot": newSpot.id,
                 "notes": body.get('notes'),
-                "popupContent": f"<a href='/{newSpot.id}/detail'>Detail</a><br/><p>{body.get('addr')}</p> "
+                "popupContent": popupContent,
                 },
             "geometry": {
                 "type": "Point",

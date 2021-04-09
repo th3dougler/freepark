@@ -48,12 +48,13 @@ async function onClick(e) {
   let tempMarker = L.marker(e.latlng,{icon: greenIcon}).addTo(tempLayer)
     .bindPopup(`${address} <br/>
     <form action="/addspot/" method="GET">
+    <div style="text-align: center;">
     <input type="hidden" name="lat" value="${e.latlng["lat"]}">
     <input type="hidden" name="lon" value="${e.latlng["lng"]}">
     <input type="hidden" name="addr" value="${address}">
     <button class="btn blue lighten-3">Add Spot</button><br/>
     </form>
-    <a href="#" class="btn-flat">Cancel</a><br/>`).openPopup()
+    </div>`).openPopup()
     tempLayer.addTo(map)
     map.getContainer().classList.remove("loading")
 }
