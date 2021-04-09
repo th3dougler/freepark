@@ -52,6 +52,9 @@ body{
 
 .hide-on-med-and-down li a{
     color: #90CAF9 !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .search-div{
@@ -135,7 +138,7 @@ html, body{
 img.profile_icon{
     width: 32px;
     height: 32px;
-    
+    margin-bottom: 15px;
     margin-top: 15px;
 }
 img.profile_sm{
@@ -299,10 +302,51 @@ div.profile_circle_sm:after{
     visibility: none;
 }
 
+#rating{
+    margin-bottom: 0;
+}
+
+#rating-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rating-values{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto;
+    overflow: hidden;
+    width: 200px;
+}
+
+.rating-value:before{
+    content: '';
+    display: block;
+    width: 0;
+    height: auto;
+    padding-left: 3px;
+    text-indent: 0;
+}
+
+#mobile-demo>li>a{
+    font-size: 20px;
+}
+
 @media screen and (max-width: 600px) {
     #logo {
         height: 50%;
         content:url("/static/images/SVG/Logo_Alt2.svg");
+    }
+    #review-modal{
+        width: 80%;
+        height: auto;
+        /*  */
+        position: absolute;
+    }
+    #nav-bar{
+        height: 8%;
     }
 }
 #login-form input:not([type=submit]){
