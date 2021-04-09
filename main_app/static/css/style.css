@@ -4,14 +4,17 @@ body{
 /* tweak to allow search bar to share space with buttons */
 #search{
     position: absolute;
-    background-color: transparent;
+    background-color: #EDF9FB;
     margin: 0;
+    border: 2px solid #BABABA;
+    border-radius: 50px;
+    z-index: 0;
 }
 
 #nav-bar{
     background-color: snow;
     color: black;
-    height: auto;
+    height: 8%;
 }
 
 #nav-wrapper{
@@ -33,11 +36,14 @@ body{
 /* set logo size to fit navbar */
 .sidenav-trigger{
     position: relative;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.sidenav-trigger>i{
-    color: #90CAF9 !important;
+.sidenav-trigger>img{
+    height: 100%;
+    width: auto;
 }
 
 .sidenav li a{
@@ -62,13 +68,13 @@ body{
     display: flex;
     flex-direction: row;
     align-items: center;
-    border: 2px solid lightgray;
     border-radius: 50px;
 }
 
 .input-field>i{
     color: #90CAF9 !important;
     margin-left: 20px;
+    z-index: 1;
 }
 
 .logo-div{
