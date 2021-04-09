@@ -11,6 +11,9 @@ BUCKET = 'freepark-profile'
 from .models import Comment, Spot
 from django.contrib.auth.models import User
 
+def getkey(request):
+    return HttpResponse(json.dumps(os.environ['OPEN_CAGE_API']),content_type='application/json')
+
 # take bounds of visible map, return spots which are within those bounds
 def spotlist(request):
     bounds = request.GET

@@ -1,9 +1,20 @@
-var provider = new GeoSearch.OpenStreetMapProvider();
+var provider;
+(async function(){
+  key = await fetchKey()
+  provider = new GeoSearch.OpenCageProvider({
+    params: {
+      key: key,
+    },
+  });
+})();
 let results = [];
 let isMapView = false;
 document.addEventListener("DOMContentLoaded", init());
 
-
+async function fetchKey(){
+  return await fetch('/api/getkey').then(res => res.json())
+}
+fetchKey()
 /* Performs geosearch, returns resObject which is a dictionary of the results
 because it is the preferred format for Materialize Autocomplete object */
 async function geosearch(str, getFirstOnly = false) {
@@ -50,15 +61,7 @@ async function onSubmit(e){
   if (!finalResult){
     finalResult = await geosearch(formData.get('search'), true)
   }
-  
-  console.log(finalResult)
-  if(isMapView){
-    let map = document.getElementById('main-map')._leaflet_map
-    map.panTo([finalResult.y, finalResult.x],{animate: true, duration: 1})
-    console.log([finalResult.y, finalResult.x])
-  }else{
-    
-  }
+  window.location.replace(`/latlng?lat=${finalResult.y}&lon=${finalResult.x}`);
 }
   
 //get materialize dom object, add event listener to update autocomplete  

@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 
 #import class based views + forms
 from django.contrib.auth.forms import UserCreationForm
 
 #import db models
-from .models import Comment, Spot, Profile
+from .models import Comment, Spot, Profile, Favorite
 import os
 import uuid
 import boto3
@@ -22,12 +23,28 @@ def Main_App_Home(request, spotid = None):
   else:
     spot= None
   return render(request, 'main_app/main_app_home.html',{'spot': spot})
+
+@login_required
+def Main_App_Home_Geo(request):
+  spot = {
+    'geometry':{
+      'type': "Point",
+      'coordinates': [request.GET.get('lon'),request.GET.get('lat')]
+    }
+  }
+  return render(request, 'main_app/main_app_home.html', {'spot': json.dumps(spot)})
+
+
 @login_required
 def Main_App_Detail(request, pk):
   thisSpot = Spot.objects.get(pk=pk)
+  favorite = False
+  if (thisSpot.favorite_set.filter(user_id = request.user.id )):
+    favorite = True
   return render(request, 'main_app/main_app_detail.html',{
     'spot': thisSpot,
-    'rating_range': range(0,5)
+    'rating_range': range(0,5),
+    'favorite': favorite,
     })
 @login_required  
 def Main_App_Add_Comment(request, pk):
@@ -41,6 +58,16 @@ def Main_App_Add_Comment(request, pk):
     )
     
   return redirect('main-app-detail', pk = pk)
+@login_required  
+def Main_App_Add_Favorite(request, pk):
+  if Favorite.objects.filter(spot_id = pk,user_id = request.user.id).exists():
+    Favorite.objects.filter(spot_id = pk,user_id = request.user.id).delete()
+  else:
+    Favorite.objects.create(
+      spot_id = pk,
+      user_id = request.user.id,
+    )
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 """ {'lat': ['43.650981839898684'],
 'lon': ['-79.42196846008302'],

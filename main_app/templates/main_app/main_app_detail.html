@@ -1,8 +1,31 @@
 {%extends "base.html" %}
 {% load static %}
 {%block content%}
-<div class="row center">
+<div class="row center detail-overlay-container">
   <img class="materialboxed responsive-img "  src="{{spot.url}}" style="height: 40vh">
+  <div class="overlay">
+      {{spot.addr}}
+      <div>
+       <em> [{{spot.lat}},{{spot.lon}}]</em>
+      </div>
+      <div class="left">
+      {%for i in rating_range%}
+      {%if i < spot.rating%}
+          <img src="{%static '/images/star_check.png'%}">
+      {%else%}
+          <img src="{%static '/images/star_uncheck.png'%}">
+      {%endif %}
+      {%endfor %}
+    </div>
+    <div class="right">
+        {%if favorite == True%}
+        <a href="{%url 'add-favorite' spot.id %}" class="red-text"><i class="material-icons">favorite</i></a>
+        {%else%}
+        <a href="{%url 'add-favorite' spot.id %}" class="white-text"><i class="material-icons">favorite</i></a>
+        {%endif%}
+        
+    </div>
+    </div>
 </div>
 <div class="container">
     <div class="row center">

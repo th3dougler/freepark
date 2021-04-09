@@ -187,6 +187,28 @@ div.profile_circle_sm:after{
     overflow: hidden;
 }
 
+.detail-overlay-container, .detail-overlay-container *{
+    box-sizing: border-box;
+    position: relative;
+    
+}
+.detail-overlay-container > img{
+    display: block;
+}
+.detail-overlay-container > .overlay{
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    color: #f1f1f1;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: left;
+}
+
+
 .search-main{
     border: 2px solid lightgray;
     width: 100%;

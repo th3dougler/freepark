@@ -87,9 +87,14 @@ async function init() {
       map.locate({ setView: true, maxZoom: 16 });
     else{
       let latlng = L.latLng(initSpot.geometry.coordinates[1],initSpot.geometry.coordinates[0]);
+      let e = {
+        latlng: latlng
+        
+      };
+      onClick(e)
       map.setView(latlng, 15)
-      onMoveEnd(null)
     }
+    onMoveEnd(null)
     //EventListeners for map:
     map.on("locationfound", onLocationFound);
     map.on("locationerror", onLocationError);
