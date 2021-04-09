@@ -74,7 +74,7 @@ export async function addSpot(newSpot) {
             body: JSON.stringify(newSpot) // body data type must match "Content-Type" header
           }
         let result = await fetch(url,options).then(res=>res.json());
-        console.log(result)
+        
         return result
         
     }catch(err){

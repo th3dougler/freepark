@@ -53,7 +53,6 @@ function onMoveEnd(e){
 
 async function init() {
   let latlng = new L.LatLng(lat,lon)
-  console.log(map.getCenter())
   //initialize leaflet map, set default view to be the whole world
   try {
     //initialize leaflet raster tile layer, using OSM free tiles

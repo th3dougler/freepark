@@ -44,12 +44,13 @@ async function onClick(e) {
   
   let resObject = await geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
   
+  let address = (resObject !== undefined)? Object.keys(resObject)[0] : "";
   let tempMarker = L.marker(e.latlng,{icon: greenIcon}).addTo(tempLayer)
-    .bindPopup(`${Object.keys(resObject)[0]} <br/>
+    .bindPopup(`${address} <br/>
     <form action="/addspot/" method="GET">
     <input type="hidden" name="lat" value="${e.latlng["lat"]}">
     <input type="hidden" name="lon" value="${e.latlng["lng"]}">
-    <input type="hidden" name="addr" value="${Object.keys(resObject)[0]}">
+    <input type="hidden" name="addr" value="${address}">
     <button class="btn blue lighten-3">Add Spot</button><br/>
     </form>
     <a href="#" class="btn-flat">Cancel</a><br/>`).openPopup()
