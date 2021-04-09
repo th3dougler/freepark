@@ -2,6 +2,7 @@ import * as ajaxFunc from "./ajax_functions.js";
 let results = [];
 let isMapView = false;
 let searchForm;
+let map;
 document.addEventListener("DOMContentLoaded", init());
 
 /* Performs Materialize DOM manipulation of autocomplete data,
@@ -17,11 +18,11 @@ async function updateAutocomplete(search) {
   }
 
 async function onSubmit(e){
+  map.getContainer().classList.add("loading")
   if(typeof e == 'object')
     e.preventDefault();
   let formData = new FormData(searchForm);
   let finalResult;
-  console.log(results)
   for(let i = 0; i < results.length; i++){
     if(results[i].label == formData.get('search'))
       finalResult = await ajaxFunc.geoSearch('f1',formData.get(results[i]));
@@ -34,15 +35,17 @@ async function onSubmit(e){
   
   
   if(isMapView){
-    let map = document.getElementById('main-map')._leaflet_map
     map.panTo([lat, lon],{animate: true, duration: 1})
   }else{
     window.location.replace(`/latlng?lat=${lat}&lon=${lon}`);
   }
+  map.getContainer().classList.remove("loading")
+
 }
   
 //get materialize dom object, add event listener to update autocomplete  
 async function init(){
+    map = document.getElementById('main-map')._leaflet_map
     var elems = document.querySelectorAll('.sidenav');
     M.Sidenav.init(elems, {edge: 'right', passive: true})
     let search = document.getElementById("search");
