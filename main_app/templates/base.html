@@ -48,8 +48,9 @@
                     <li><a href="{%url 'main-app-home'%}">Home</a></li>
                     {%if user.is_authenticated%}
                     <li><a href="{%url 'logout'%}">Log Out</a></li>
-                    <li><a href="{%url 'profile'%}" class="align-wrapper">
-                        <img class="profile_icon circle" src="{{user.profile.url}}"/>
+                    <li>
+                        <a href="{%url 'profile'%}" class="align-wrapper">
+                            <img class="profile_icon circle" src="{{user.profile.url}}"/>
                         </a>
                     </li>
                     {%else%}
