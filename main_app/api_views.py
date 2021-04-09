@@ -60,7 +60,7 @@ def addspot(request):
             geojson = ""
         )
         newSpot.save()
-        popupContent = f'<div style="text-align: center;">{body.get("addr")}<br/><button href="/{newSpot.id}/detail"class="btn blue lighten-3">Details</button><br/></div>'
+        popupContent = f'<div style="text-align: center;">{body.get("addr")}<br/><a href="/{newSpot.id}/detail"class="btn blue lighten-3">Details</a><br/></div>'
         geojson = {
             "type": "Feature",
             "properties": {
