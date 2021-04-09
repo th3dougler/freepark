@@ -52,7 +52,7 @@ async function onClick(e) {
     <input type="hidden" name="lat" value="${e.latlng["lat"]}">
     <input type="hidden" name="lon" value="${e.latlng["lng"]}">
     <input type="hidden" name="addr" value="${address}">
-    <button class="btn blue lighten-3">Add Spot</button><br/>
+    <button class="btn green lighten-3">Add Spot</button><br/>
     </form>
     </div>`).openPopup()
     tempLayer.addTo(map)
