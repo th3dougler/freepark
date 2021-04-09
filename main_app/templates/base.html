@@ -19,8 +19,7 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
     <!-- Leaflet Geo Search CDN -->
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <title>Spotter</title>
@@ -80,7 +79,6 @@
     
     {%endblock%}
     {%if user.is_authenticated%}
-    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
     <script type="module" src="{% static 'javascript/modules/search_bar.js' %}"></script>
     {%endif%}
 </body>
