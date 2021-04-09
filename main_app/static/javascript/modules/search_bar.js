@@ -1,48 +1,15 @@
-var provider;
-(async function(){
-  key = await fetchKey()
-  provider = new GeoSearch.OpenCageProvider({
-    params: {
-      key: key,
-    },
-  });
-})();
+import * as ajaxFunc from "./ajax_functions.js";
 let results = [];
 let isMapView = false;
+let searchForm;
 document.addEventListener("DOMContentLoaded", init());
 
-async function fetchKey(){
-  return await fetch('/api/getkey').then(res => res.json())
-}
-fetchKey()
-/* Performs geosearch, returns resObject which is a dictionary of the results
-because it is the preferred format for Materialize Autocomplete object */
-async function geosearch(str, getFirstOnly = false) {
-    try {
-      //get geosearch results, pipe them into object sent to materialize autocomplete
-      results = await provider.search({ query: str });
-      if(getFirstOnly){
-        return results[0];
-      }else{
-        let resObject = {};
-        let i = 0;
-        while(i < 5 && i < results.length){
-          resObject[results[i].label] = null;
-          i++
-        }
-        return resObject;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  
 /* Performs Materialize DOM manipulation of autocomplete data,
 Does not do well with precise location data, due to sketchy fuzzy search logic
 TO DO: rewrite autocomplete code from scratch, sell for profit
  */
 async function updateAutocomplete(search) {
-    let result = await geosearch(search.value);
+    let result = await ajaxFunc.geoSearch('f',search.value);
     
     let instance = M.Autocomplete.getInstance(search);
     instance.updateData(result);
@@ -59,9 +26,17 @@ async function onSubmit(e){
       finalResult = results[i];
   }
   if (!finalResult){
-    finalResult = await geosearch(formData.get('search'), true)
+    finalResult = await ajaxFunc.geoSearch('f',formData.get('search'))
   }
-  window.location.replace(`/latlng?lat=${finalResult.y}&lon=${finalResult.x}`);
+  
+  console.log(finalResult)
+  if(isMapView){
+    let map = document.getElementById('main-map')._leaflet_map
+    map.panTo([finalResult.y, finalResult.x],{animate: true, duration: 1})
+    console.log([finalResult.y, finalResult.x])
+  }else{
+    window.location.replace(`/latlng?lat=${finalResult.y}&lon=${finalResult.x}`);
+  }
 }
   
 //get materialize dom object, add event listener to update autocomplete  

@@ -80,7 +80,7 @@
     {%endblock%}
     {%if user.is_authenticated%}
     <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
-    <script src="{% static 'javascript/modules/search_bar.js' %}"></script>
+    <script type="module" src="{% static 'javascript/modules/search_bar.js' %}"></script>
     {%endif%}
 </body>
 </html>

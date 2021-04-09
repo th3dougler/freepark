@@ -42,9 +42,9 @@ async function onClick(e) {
   map.getContainer().classList.add("loading")
   tempLayer.clearLayers()
   
-  let resObject = await geosearch(`${e.latlng["lat"]}, ${e.latlng["lng"]}`);
+  let resObject = await ajaxFunc.geoSearch('r', e.latlng["lat"], e.latlng["lng"]);
   
-  let address = (resObject !== undefined)? Object.keys(resObject)[0] : "";
+  let address = (resObject !== undefined)? resObject.formatted : "";
   let tempMarker = L.marker(e.latlng,{icon: greenIcon}).addTo(tempLayer)
     .bindPopup(`${address} <br/>
     <form action="/addspot/" method="GET">
@@ -70,6 +70,7 @@ async function onMoveEnd(e){
 }
 
 async function init() {
+  
   //initialize leaflet map, set default view to be the whole world
   try {
     //set a half second timeout every time the user types, to avoid wasting

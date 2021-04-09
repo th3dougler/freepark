@@ -81,3 +81,41 @@ export async function addSpot(newSpot) {
         console.log(err)
     }
 }
+
+//geosearch shot caller:
+//dir refers to weather it is a 'f'orward geosearch or 'r'everse
+//for our purposes, forward geosearch returns just the most relevant item in great detail
+//the reverse lookup is for autocomplete, and thus pulls a list of relevant items formatted for
+//materialize autocomplete
+export async function geoSearch(dir) {
+    try{
+        let url = ""
+        if(dir === 'r'){
+            url = `/api/geosearch/${dir}?lat=${arguments[1]}&lon=${arguments[2]}`;
+        }else if(dir === 'f'){
+            url = `/api/geosearch/${dir}?str=${arguments[1]}`;
+        }else{
+            return
+        }
+        let options = {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          }
+        let result = await fetch(url,options).then(res=>res.json());
+        let formattedResult = {}
+        if(dir === 'f'){
+            let i = 0;
+            while(i < 5 && i < result.length){   
+                formattedResult[result[i].formatted] = null;
+                i++
+            }
+        }else{
+            formattedResult = result[0]
+        }
+            
+        
+        return formattedResult
+        
+    }catch(err){
+        console.log(err)
+    }
+}

@@ -5,15 +5,14 @@ import os
 import json
 import uuid
 import boto3
+#geosearch library
+from opencage.geocoder import OpenCageGeocode
+geocoder = OpenCageGeocode(os.environ['OPEN_CAGE_API'])
 S3_BASE_URL = 's3.us-east-2.amazonaws.com'
 BUCKET = 'freepark-profile'
 #import db models
 from .models import Comment, Spot
 from django.contrib.auth.models import User
-
-def getkey(request):
-    return HttpResponse(json.dumps(os.environ['OPEN_CAGE_API']),content_type='application/json')
-
 # take bounds of visible map, return spots which are within those bounds
 def spotlist(request):
     bounds = request.GET
@@ -84,3 +83,13 @@ def addspot(request):
         
         
     return redirect('main-app-home')
+# geosearch serverside execution
+@login_required
+def geosearch(request, dir):
+    res = 'err'
+    body = request.GET
+    if dir == 'f':
+        res = geocoder.geocode(body.get('str'))
+    elif dir == 'r':
+        res = geocoder.reverse_geocode(float(body.get('lat')),float(body.get('lon')))
+    return HttpResponse(json.dumps(res))

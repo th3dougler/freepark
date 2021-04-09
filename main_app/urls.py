@@ -27,7 +27,7 @@ urlpatterns= [
     
     path('api/spotlist', api_views.spotlist, name='api-spotlist'),
     path('api/addspot', api_views.addspot, name='api-addspot'),
-    path('api/getkey', api_views.getkey, name='api-getkey'),
+    path('api/geosearch/<str:dir>', api_views.geosearch, name='api-geosearch'),
  
     
     
