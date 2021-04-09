@@ -108,5 +108,8 @@ def geosearch(request, dir):
     if dir == 'f':
         res = geocoder.geocode(body.get('str'))
     elif dir == 'r':
-        res = geocoder.reverse_geocode(float(body.get('lat')),float(body.get('lon')))
+        if 'lat' not in request.GET:
+            res = geocoder.geocode(body.get('str'))
+        else:    
+            res = geocoder.reverse_geocode(float(body.get('lat')),float(body.get('lon')))
     return HttpResponse(json.dumps(res))

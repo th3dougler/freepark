@@ -94,6 +94,8 @@ export async function geoSearch(dir) {
             url = `/api/geosearch/${dir}?lat=${arguments[1]}&lon=${arguments[2]}`;
         }else if(dir === 'f'){
             url = `/api/geosearch/${dir}?str=${arguments[1]}`;
+        }else if(dir === 'f1'){
+            url = `/api/geosearch/r?str=${arguments[1]}`;
         }else{
             return
         }

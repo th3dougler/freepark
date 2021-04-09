@@ -9,10 +9,10 @@ Does not do well with precise location data, due to sketchy fuzzy search logic
 TO DO: rewrite autocomplete code from scratch, sell for profit
  */
 async function updateAutocomplete(search) {
-    let result = await ajaxFunc.geoSearch('f',search.value);
+    results = await ajaxFunc.geoSearch('f',search.value);
     
     let instance = M.Autocomplete.getInstance(search);
-    instance.updateData(result);
+    instance.updateData(results);
     instance.open();
   }
 
@@ -21,21 +21,23 @@ async function onSubmit(e){
     e.preventDefault();
   let formData = new FormData(searchForm);
   let finalResult;
+  console.log(results)
   for(let i = 0; i < results.length; i++){
     if(results[i].label == formData.get('search'))
-      finalResult = results[i];
+      finalResult = await ajaxFunc.geoSearch('f1',formData.get(results[i]));
   }
   if (!finalResult){
-    finalResult = await ajaxFunc.geoSearch('f',formData.get('search'))
+    finalResult = await ajaxFunc.geoSearch('f1',formData.get('search'))
   }
+  let lat = finalResult.geometry['lat'];
+  let lon = finalResult.geometry['lng'];
   
-  console.log(finalResult)
+  
   if(isMapView){
     let map = document.getElementById('main-map')._leaflet_map
-    map.panTo([finalResult.y, finalResult.x],{animate: true, duration: 1})
-    console.log([finalResult.y, finalResult.x])
+    map.panTo([lat, lon],{animate: true, duration: 1})
   }else{
-    window.location.replace(`/latlng?lat=${finalResult.y}&lon=${finalResult.x}`);
+    window.location.replace(`/latlng?lat=${lat}&lon=${lon}`);
   }
 }
   
