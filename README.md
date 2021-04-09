@@ -1,31 +1,51 @@
-# Freepark (working title)
+# Spotter
+Spotter is a Django web app that assists users in crowd-sourcing unconventional parking spots in urban areas.
 
-Python + Django web app for crowd-sourced free parking spaces
-Uses Leaflet for client side map rendering using OpenStreetMap
+[![](https://i.imgur.com/iwy1c5im.png)](https://imgur.com/iwy1c5i) [![](https://i.imgur.com/whlUbzOm.png)](https://imgur.com/whlUbzO) [![](https://i.imgur.com/It706FCm.png)](https://imgur.com/It706FC)
 
-SCREENSHOT OF MAIN SCREEN
 
 ## Technologies Used:
-Python3.8
-Django
-Postgresql
-Pipenv
-environ
 
-LeafletJS
-OpenStreetMap
-MaterializeCSS
+#### Tech Stack:
+[Amazon AWS](https://aws.amazon.com/) - RDS & S3
+
+[Python](https://www.python.org/)
+
+Javascript
+
+[Django](https://www.djangoproject.com/)
+
+[Heroku](https://heroku.com/)
+
+#### Libraries Used:
+
+[LeafletJS](https://leafletjs.com/)
+
+[MaterializeCSS](https://materializecss.com/)
+
+[Material Icons](https://fonts.google.com/icons)
+
+[OpenCage Python Module](https://pypi.org/project/opencage/)
+
+#### API's Used:
+
+[OpenStreetMap] - Raster map tiles
+
+[OpenCage](https://opencagedata.com/) - Geosearch api
 
 ## Getting Started:
 
-A link to the deployed app (Heroku)
+[A link to the deployed app (Heroku)](https://spotter-demo.herokuapp.com/)
+
+#### Planning Materials:
 
 Trello:
-[Trello Board](https://trello.com/b/QExBNmy0)
+[Trello Board](https://trello.com/b/QExBNmy0/project-3)
 ERD:
-[Lucidchart ERD](https://lucid.app/lucidchart/invitations/accept/d5c0ab0b-62fe-4146-b6e5-7234f17b2892?viewport_loc=-271%2C-168%2C2219%2C1079%2C0_0)
-Wireframes:
+[Lucidchart ERD](https://lucid.app/lucidchart/invitations/accept/inv_d9ec0432-c70b-4f10-9151-7ce05b54482a)
 
+Wireframes:
+[Figma Package](https://www.figma.com/file/ueEUWnLKC6iTLADcuibxoy/Collabathon-Spotter?node-id=71%3A251)
 ## Planned future enhancements (icebox items).
 
  - Set timeout feature, for when you can only park for X hours
