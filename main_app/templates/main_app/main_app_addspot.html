@@ -30,6 +30,7 @@
                             let output = document.getElementById('output');
                             output.src = URL.createObjectURL(e.target.files[0]);
                             output.onload = ()=>{
+                            document.getElementById('default-image').innerHTML="";
                             URL.revokeObjectURL(output.src)
                         }
                         }
