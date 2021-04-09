@@ -10,7 +10,7 @@ class Profile(models.Model):
         User,
         on_delete=models.CASCADE,
         )
-    url = models.CharField(max_length=200, default="http://placekitten.com/300/300")
+    url = models.CharField(max_length=200, default="https://placekitten.com/300/300")
     def __str__(self):
         return f'{self.user} - {self.url}'
 
@@ -20,7 +20,7 @@ class Spot(models.Model):
     lat = models.FloatField()
     lon = models.FloatField()
     geojson = models.TextField()
-    url = models.CharField(max_length=200, default="http://placekitten.com/1500/900")
+    url = models.CharField(max_length=200, default="https://placekitten.com/1500/900")
     
     def __str__(self):
         return f'{self.user} - [{self.lat},{self.lon}]'
