@@ -101,7 +101,6 @@ def addspot(request):
         
     return redirect('main-app-home')
 # geosearch serverside execution
-@login_required
 def geosearch(request, dir):
     res = 'err'
     body = request.GET
