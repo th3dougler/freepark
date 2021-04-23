@@ -44,14 +44,12 @@ async function onSubmit(e) {
 
 //get materialize dom object, add event listener to update autocomplete
 async function init() {
-  console.log("init");
   isMapView = document.getElementById("map-container") !== null ? true : false;
   if (isMapView) map = document.getElementById("main-map")._leaflet_map;
   var elems = document.querySelectorAll(".sidenav");
   M.Sidenav.init(elems, { edge: "right", passive: true });
   let search = document.getElementById("search");
   elems = document.querySelectorAll(".autocomplete");
-  console.log("init");
   var instances = M.Autocomplete.init(elems, {
     limit: 5,
     data: {},
@@ -65,7 +63,6 @@ async function init() {
   // determines weather geosearch will redirect to map page or simply fly to location
 
   let searchTimeout;
-  console.log(isMapView);
   //set a half second timeout every time the user types, to avoid wasting
   //time on geo polling
   search.addEventListener("input", () => {
