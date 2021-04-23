@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'freepark.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ['DB_NAME'],
@@ -95,8 +95,16 @@ DATABASES = {
         'HOST': os.environ['DB_HOST'],
         'PORT': '5432'
     }
+} """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'freepark',
+        'USERNAME': 'doug',
+        'PASSWORD': 'fkfrt',
+        'HOST': 'localhost',
+    }
 }
-
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)

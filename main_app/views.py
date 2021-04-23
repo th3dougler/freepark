@@ -16,7 +16,6 @@ import json
 S3_BASE_URL = 's3.us-east-2.amazonaws.com'
 BUCKET = 'freepark-profile'
 # main_app
-@login_required
 def Main_App_Home(request, spotid = None):
   if spotid:
     spot= Spot.objects.get(pk=spotid).geojson
